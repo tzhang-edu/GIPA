@@ -1,2 +1,286 @@
 # GIPA
-This repository contains the data and code to reproduce the results from Ting Zhang, Zhijun Ma. (2026). Achieving_climate_resistance_in_the_global_intertidal_protected_area_system. In prep.
+
+**About**
+
+This repository contains the data and code to reproduce the results from Ting Zhang, Zhijun Ma, et al. (2026). Achieving\_climate\_resistance\_in\_the\_global\_intertidal\_protected\_area\_system. In prep.
+
+
+
+You can cite this code using this DOI: 10.5281/zenodo.17131881
+
+
+
+All code runs are indicated under each header, along with the location of the specific files one can use to reproduce the results.
+
+Where one wants to reproduce the analysis, please see the folder Code/, where the files used to produce results.
+
+
+
+Note that we have not provided raw monthly temperature data in this repository, but those data can be downloaded at aims2.llnl.gov/search. IPCC projected SLR data can be downloaded at https://github.com/BrodiePearson/IPCC\_AR6\_Chapter9\_Figures.
+
+
+
+Note that cloning this repository may take a few minutes due to the large number of files. While not all data are provided in this repository owing to memory size limits in GitHub, all files are available upon request. Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have any questions, find mistakes in the code, or if you would like to access specific files.
+
+
+
+Below is an overview of the different folders in this repository and their content.
+
+
+
+**File 1: Data/**
+
+This folder contains data tables that were used for the analyses.
+
+----- Protected areas data -----
+
+• WDPA\_May2023\_Public\_shp\_polygons\_international\_level.shp: spatial extent of PAs. The attribute table of these data is detailed below:
+
+No.	Attributes	Data type	Description
+
+1	Shape	Geometry	Vector type, here is ‘polygon’
+
+2	WDPAID	Double	Unique ID number of the PA
+
+3	WDPA\_PID	Text	Unique ID number of the PA (different data types)
+
+4	NAME	Text	Name of PA (in English)
+
+5	ORIG\_NAME	Text	Name of PA (in non-English)
+
+6	DESIG	Text	Designation of PA
+
+7	DESIG\_ENG	Text	Designation of PA (in English)
+
+8	DESIG\_TYPE	Text	Type of PA, here is ‘International’
+
+9	ISO3	Text	Country in which PA is located
+
+
+
+• WDPA\_May2023\_Public\_shp\_polygons\_international\_level\_grid: the vector surface data of the computational grid. Owing to the large amount of data, the file is saved in the geodatabase and then called for calculation during actual operation. The attribute table of these data is as follows:
+
+No.	Attributes	Data type	Description
+
+1	Shape	Geometry	Vector type, here is ‘polygon’
+
+2	WDPAID	Double	Unique ID number of the PA
+
+3	WDPA\_PID	Text	Unique ID number of the PA (different data types)
+
+4	NAME	Text	Name of PA (in English)
+
+5	ISO3	Text	Country in which PA is located
+
+6	WDPA\_PID2	Text	Unique ID for each computing grid, including WDPAID information
+
+
+
+----- Inundation frequency data------
+
+• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif: Global topographic data.
+
+• Fig9\_28b\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP1-2.6 scenario.
+
+• Fig9\_28c\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP2-4.5 scenario.
+
+• Fig9\_28d\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP3-7.0 scenario.
+
+• Fig9\_28e\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP5-8.5 scenario.
+
+• Inundation\_frequency\_global\_2010.tif: Inundation frequency for the year 2010.
+
+• Inundation\_frequency\_global\_ssp126\_2100.tif: Inundation frequency for the year 2100 under the SSP1-2.6 scenario.
+
+• Inundation\_frequency\_global\_ssp245\_2100.tif: Inundation frequency for the year 2100 under the SSP2-4.5 scenario.
+
+• Inundation\_frequency\_global\_ssp370\_2100.tif: Inundation frequency for the year 2100 under the SSP3-7.0 scenario.
+
+• Inundation\_frequency\_global\_ssp585\_2100.tif: Inundation frequency for the year 2100 under the SSP5-8.5 scenario.
+
+
+
+-----Air temperature data------
+
+• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_historical\_r1i1p1f2\_gr\_2010.tif: Global temperature data layer for the year 2010.
+
+• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp126\_r1i1p1f2\_gr\_2100.tif: Global temperature data for the year 2100 under the SSP1-2.6 scenario.
+
+• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp245\_r1i1p1f2\_gr\_2100.tif: Global temperature data for the year 2100 under the SSP2-4.5 scenario.
+
+• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp370\_r1i1p1f2\_gr\_2100.tif: Global temperature data for the year 2100 under the SSP3-7.0 scenario.
+
+• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp585\_r1i1p1f2\_gr\_2100.tif: Global temperature data for the year 2100 under the SSP5-8.5 scenario.
+
+
+
+------ Human pressure data -----
+
+• gHM.tif: the global human modification (HM) dataset created by Kennedy et al. (2019).
+
+
+
+**File 3: Code/**
+
+Code/MATLAB
+
+This folder contains all the MATLAB code needed to reproduce the results.
+
+• Preprocessing\_for\_SLR\_data.m: Preprocessing the latitude and longitude display formats of the raw sea level rise data.
+
+
+
+Code/Python
+
+This folder contains all the Python code needed to reproduce the results.
+
+• cost\_path\_analysis\_for\_SLR\_Warming.py: Used for batch analysis of the path analysis considering both the impacts of sea level rise and warming.
+
+• validate\_and\_cost\_path\_as\_polyline.py: A submodel that needs to be called during path analysis, which is primarily used to ensure that when a computational grid has no path, the error is skipped and the next cell is processed in the batch calculation.
+
+
+
+**File 4: Results**
+
+This folder contains all the code outputs considering both sea level rise and warming.
+
+-----Climate resistance------
+
+• Climate\_resistance.gdb:
+
+•ssp126\_s\_w: Extent of intertidal PAs achieving climate resistance internally without any management action under SSP1-2.6. The corresponding data were directly excluded from subsequent analyses under the corresponding scenarios.
+
+
+
+The attribute tables for the above data are all the same, as follows:
+
+No.	Attributes	Data type	Description
+
+1	Shape	Geometry	Vector type, here is ‘Point’
+
+2	WDPAID	Double	Unique ID number of the PA
+
+3	WDPA\_PID	Text	Unique ID number of the PA (different data types)
+
+4	GroupID	Text	Unique ID for each computational grid, including WDPAID information. This ID is the same as ‘WDPA\_PID2’ in the shapefile of the computational grid
+
+5	WDPA\_PID2	Text	Unique ID for each computing grid, including WDPAID information
+
+6	T2010	Double	Temperature in the baseline year (2010)
+
+7	T\_SSP126	Double	Temperature in 2100 under the SSP1-2.6 scenario
+
+8	T\_SSP245	Double	Temperature in 2100 under the SSP2-4.5 scenario
+
+9	T\_SSP370	Double	Temperature in 2100 under the SSP3-7.0 scenario
+
+10	T\_SSP585	Double	Temperature in 2100 under the SSP5-8.5 scenario
+
+11	I2010	Double	Immersion frequency in the baseline year (2010)
+
+12	I\_SSP126	Double	Immersion frequency in 2100 under the SSP1-2.6 scenario
+
+13	I\_SSP245	Double	Immersion frequency in 2100 under the SSP2-4.5 scenario
+
+14	I\_SSP370	Double	Immersion frequency in 2100 under the SSP3-7.0 scenario
+
+15	I\_SSP585	Double	Immersion frequency in 2100 under the SSP5-8.5 scenario
+
+
+
+
+
+• Climate\_resistance\_BA.gdb:
+
+• ssp126\_s\_w\_BA: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP1-2.6 scenario.
+
+• ssp245\_s\_w\_BA: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP2-4.5 scenario.
+
+• ssp370\_s\_w\_BA: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP3-7.0 scenario.
+
+• ssp585\_s\_w\_BA: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP5-8.5 scenario.
+
+
+
+The attribute tables for the above data are all the same, as follows:
+
+No.	Attributes	Data type	Description
+
+1	Shape	Geometry	Vector type, here is ‘Polyline’
+
+2	GroupID	Text	Unique ID for each computational grid, including WDPAID information. This ID is the same as ‘WDPA\_PID2’ in the shapefile of the computational grid
+
+3	WDPAID	Text	Unique ID number of the PA
+
+4	PathCost	Double	Path cost
+
+
+
+• Climate\_resistance\_BA\_MR1.gdb:
+
+• ssp126\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
+
+• ssp245\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
+
+• ssp370\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
+
+• ssp585\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
+
+
+
+The attribute tables for the above data are all the same, as follows:
+
+No.	Attributes	Data type	Description
+
+1	Shape	Geometry	Vector type, here is ‘Polyline’
+
+2	GroupID	Text	Unique ID for each computational grid, including WDPAID information. This ID is the same as ‘WDPA\_PID2’ in the shapefile of the computational grid
+
+3	WDPAID	Text	Unique ID number of the PA
+
+
+
+• Climate\_resistance\_ BA\_MR2.gdb:
+
+• ssp126\_s\_w\_ BA\_MR2: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP1-2.6 scenario.
+
+• ssp245\_s\_w\_ BA\_MR2: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP2-4.5 scenario.
+
+• ssp370\_s\_w\_ BA\_MR2: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP3-7.0 scenario.
+
+• ssp585\_s\_w\_ BA\_MR2: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP5-8.5 scenario.
+
+
+
+The attribute tables for the above data are all the same, as follows:
+
+
+
+No.	Attributes	Data type	Description
+
+1	Shape	Geometry	Vector type, here is ‘Polyline’
+
+2	GroupID	Text	Unique ID for each computational grid, including WDPAID information. This ID is the same as ‘WDPA\_PID2’ in the shapefile of the computational grid
+
+3	WDPAID	Text	Unique ID number of the PA
+
+4	PathCost	Double	Path cost
+
+
+
+----- Summarized data -----
+
+• Statistics on air temperature and sea level rise.xlsx: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios (and its mean increase with the z score), the predicted sea level rise values for 2100 under the four scenarios (along with their z scores), and the area lost due to sea level rise;
+
+• Statistics of climate resistance.xlsx: the area and number of intertidal PAs that achieve climate resistance internally and those requiring specific management interventions.
+
+• Statistics of climate resistance by ecoregion.xlsx: Climate resistance percentage of intertidal PAs per ecoregion, considering the combined impacts of SLR and warming across four GHG emission scenarios.
+
+
+
+**File 5: Figure/**
+
+This folder contains figure outputs for the main figures and extended data figures.
+
+
+
