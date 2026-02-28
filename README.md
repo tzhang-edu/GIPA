@@ -2,7 +2,7 @@
 
 #### **About**
 
-This repository contains the data and code to reproduce the results from Ting Zhang, ..., Zhijun Ma, et al. (2026). Achieving climate resistance in the global intertidal protected area system. In prep. 
+This repository contains the data and code to reproduce the results from Ting Zhang, ..., Zhijun Ma, et al. (2026). Achieving climate resistance in the global intertidal protected area system. In subm.
 
 
 
@@ -109,9 +109,11 @@ This folder contains data tables that were used for the analyses.
 
 
 
+
+
 #### **File 2: Code/**
 
-##### Code/MATLAB
+#### Code/MATLAB
 
 This folder contains all the MATLAB code needed to reproduce the results.
 
@@ -126,6 +128,8 @@ This folder contains all the Python code needed to reproduce the results.
 **• cost\_path\_analysis\_for\_SLR\_Warming.py**: Used for batch analysis of the path analysis considering both the impacts of sea level rise and warming.
 
 **• validate\_and\_cost\_path\_as\_polyline.py**: A submodel that needs to be called during path analysis, which is primarily used to ensure that when a computational grid has no path, the error is skipped and the next cell is processed in the batch calculation.
+
+
 
 
 
@@ -231,13 +235,15 @@ The attribute tables for the above data are all the same, as follows:
 
 #### 
 
------ Summarized data -----
+#### ----- Summarized data -----
 
 **• Statistics on air temperature and sea level rise.xlsx**: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios, the predicted sea level rise values for 2100 under the four scenarios, and the area lost due to sea level rise;
 
 **• Statistics of climate resistance.xlsx**: the area and number of intertidal PAs that achieve climate resistance internally and those requiring specific management interventions.
 
 **• Statistics of climate resistance by ecoregion.xlsx**: Climate resistance percentage of intertidal PAs per ecoregion, considering the combined impacts of SLR and warming across four GHG emission scenarios.
+
+
 
 
 
