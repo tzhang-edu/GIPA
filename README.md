@@ -139,9 +139,9 @@ This folder contains all the code outputs considering both sea level rise and wa
 
 #### -----Climate resistance------
 
-**• Climate\_resistance.gdb:**
+**• Climate\_resistance:**
 
-**•ssp126\_s\_w**: Extent of intertidal PAs achieving climate resistance internally without any management action under SSP1-2.6. The corresponding data were directly excluded from subsequent analyses under the corresponding scenarios.
+**•ssp126\_s\_w.shp**: Extent of intertidal PAs achieving climate resistance internally without any management action under SSP1-2.6. The corresponding data were directly excluded from subsequent analyses under the corresponding scenarios.
 
 
 
@@ -167,15 +167,15 @@ The attribute tables for the above data are all the same, as follows:
 
 
 
-**• Climate\_resistance\_BA.gdb:**
+**• Climate\_resistance\_BA:**
 
-**• ssp126\_s\_w\_BA**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP1-2.6 scenario.
+**• ssp126\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP1-2.6 scenario.
 
-**• ssp245\_s\_w\_BA**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP2-4.5 scenario.
+**• ssp245\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP2-4.5 scenario.
 
-**• ssp370\_s\_w\_BA**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP3-7.0 scenario.
+**• ssp370\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP3-7.0 scenario.
 
-**• ssp585\_s\_w\_BA**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP5-8.5 scenario.
+**• ssp585\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP5-8.5 scenario.
 
 
 
@@ -190,15 +190,15 @@ The attribute tables for the above data are all the same, as follows:
 
 ###### 
 
-**• Climate\_resistance\_BA\_MR1.gdb**:
+**• Climate\_resistance\_BA\_MR1**:
 
-• **ssp126\_s\_w\_ BA\_MR1**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
+• **ssp126\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
 
-• **ssp245\_s\_w\_ BA\_MR1**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
+• **ssp245\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
 
-**• ssp370\_s\_w\_ BA\_MR1**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
+**• ssp370\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
 
-**• ssp585\_s\_w\_ BA\_MR1**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
+**• ssp585\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
 
 
 
@@ -212,15 +212,15 @@ The attribute tables for the above data are all the same, as follows:
 
 ###### 
 
-**• Climate\_resistance\_ BA\_MR2.gdb:**
+**• Climate\_resistance\_ BA\_MR2:**
 
-**• ssp126\_s\_w\_ BA\_MR2**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP1-2.6 scenario.
+**• ssp126\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP1-2.6 scenario.
 
-**• ssp245\_s\_w\_ BA\_MR2**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP2-4.5 scenario.
+**• ssp245\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP2-4.5 scenario.
 
-**• ssp370\_s\_w\_ BA\_MR2**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP3-7.0 scenario.
+**• ssp370\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP3-7.0 scenario.
 
-**• ssp585\_s\_w\_ BA\_MR2**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP5-8.5 scenario.
+**• ssp585\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP5-8.5 scenario.
 
 
 
