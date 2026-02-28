@@ -20,7 +20,9 @@ Note that we have not provided raw monthly temperature data in this repository, 
 
 
 
-Note that cloning this repository may take a few minutes due to the large number of files. While not all data are provided in this repository owing to memory size limits in GitHub, all files are available upon request. Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have any questions, find mistakes in the code, or if you would like to access specific files.
+Note that cloning this repository may take a few minutes due to the large number of files. While not all data are provided in this repository owing to memory size limits in GitHub, all files are available upon request. 
+
+Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have any questions, find mistakes in the code, or if you would like to access specific files.
 
 
 
@@ -136,7 +138,7 @@ This folder contains all the Python code needed to reproduce the results.
 
 This folder contains all the code outputs considering both sea level rise and warming.
 
-##### -----Climate resistance------
+#### -----Climate resistance------
 
 • Climate\_resistance.gdb:
 
@@ -210,13 +212,10 @@ No.	Attributes	Data type	Description
 
 • Climate\_resistance\_BA\_MR1.gdb:
 
-• ssp126\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
-
-• ssp245\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
-
-• ssp370\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
-
-• ssp585\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
+* • **ssp126\_s\_w\_ BA\_MR1**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
+* • **ssp245\_s\_w\_ BA\_MR1**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
+* • ssp370\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
+* • ssp585\_s\_w\_ BA\_MR1: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
 
 
 
@@ -260,7 +259,7 @@ No.	Attributes	Data type	Description
 
 
 
-##### ----- Summarized data -----
+#### ----- Summarized data -----
 
 • Statistics on air temperature and sea level rise.xlsx: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios (and its mean increase with the z score), the predicted sea level rise values for 2100 under the four scenarios (along with their z scores), and the area lost due to sea level rise;
 
