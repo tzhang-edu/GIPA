@@ -8,7 +8,11 @@ This repository contains the data and code to reproduce the results from Ting Zh
 
 You can cite it using this DOI: [10.5281/zenodo.17131881](https://zenodo.org/records/17131881?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjViMGZjMDIxLWUxNDQtNDIzYi04NWJhLTU4MGE0MWVlOTcyOSIsImRhdGEiOnt9LCJyYW5kb20iOiJiNWExNjIwYjZlOTRmNmUzYWUwZDMwOWI4NzBmNTY2OCJ9.261kxT1B6lilLfnMCO_JTApahCUJ_-o1n7bjWCcSj_U7LfPUcG9-vyipaamYdPKIFfIMaBa1j2LP-ZjWkryT-A)
 
+Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have any questions, find mistakes in the code, or if you would like to access specific files.
 
+
+
+#### **Dependencies**
 
 To reproduce the analysis, please refer to the folder Code/, which contains the files used to produce the results. The code used for path analysis is written in Python andutilizes the arcpy site package; therefore, ArcGIS Pro must be installed on the computing platform beforehand (compatible with Windows systems only).
 
@@ -22,11 +26,7 @@ Note that cloning this repository may take a few minutes due to the large number
 
 
 
-Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have any questions, find mistakes in the code, or if you would like to access specific files.
-
-
-
-Below is an overview of the different folders in this repository and their content.
+We have tested in ArcGIS Pro 10.3 and MATLAB R2023b on Windows 11 (on PC with i7-13700 and 32 GB memory). Below is an overview of the different folders in this repository and their content.
 
 
 
