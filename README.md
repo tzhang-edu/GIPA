@@ -14,7 +14,7 @@ Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have an
 
 #### **Dependencies**
 
-To reproduce the analysis, please refer to the folder Code/, which contains the files used to produce the results. The code used for path analysis is written in Python andutilizes the arcpy site package; therefore, ArcGIS Pro must be installed on the computing platform beforehand (compatible with Windows systems only).
+To reproduce the analysis, please refer to the folder Code/, which contains the files used to produce the results. The code used for path analysis is written in Python and utilizes the arcpy site package; therefore, ArcGIS Pro must be installed on the computing platform beforehand (compatible with Windows systems only. For installation instructions, please refer to the [official guide](https://pro.arcgis.com/en/pro-app/latest/get-started/install-and-sign-in-to-arcgis-pro.htm)). Additionally, active licenses for both the Spatial Analyst (arcpy.sa) and Image Analyst (arcpy.ia) extensions are strictly required to execute the spatial operations.
 
 
 
