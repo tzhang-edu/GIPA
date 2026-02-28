@@ -2,25 +2,25 @@
 
 #### **About**
 
-This repository contains the data and code to reproduce the results from Ting Zhang, ..., Zhijun Ma, et al. (2026). Achieving climate resistance in the global intertidal protected area system. In prep.
+This repository contains the data and code to reproduce the results from Ting Zhang, ..., Zhijun Ma, et al. (2026). Achieving climate resistance in the global intertidal protected area system. In prep. 
 
 
 
-You can cite this code using this DOI: 10.5281/zenodo.17131881
+You can cite it using this DOI: [10.5281/zenodo.17131881](https://zenodo.org/records/17131881?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjViMGZjMDIxLWUxNDQtNDIzYi04NWJhLTU4MGE0MWVlOTcyOSIsImRhdGEiOnt9LCJyYW5kb20iOiJiNWExNjIwYjZlOTRmNmUzYWUwZDMwOWI4NzBmNTY2OCJ9.261kxT1B6lilLfnMCO_JTApahCUJ_-o1n7bjWCcSj_U7LfPUcG9-vyipaamYdPKIFfIMaBa1j2LP-ZjWkryT-A)
 
 
 
-All code runs are indicated under each header, along with the location of the specific files one can use to reproduce the results.
-
-Where one wants to reproduce the analysis, please see the folder Code/, where the files used to produce results.
+To reproduce the analysis, please refer to the folder Code/, which contains the files used to produce the results. The code used for path analysis is written in Python andutilizes the arcpy site package; therefore, ArcGIS Pro must be installed on the computing platform beforehand (compatible with Windows systems only).
 
 
 
-Note that we have not provided raw monthly temperature data in this repository, but those data can be downloaded at aims2.llnl.gov/search. IPCC projected SLR data can be downloaded at https://github.com/BrodiePearson/IPCC\_AR6\_Chapter9\_Figures.
+Note that we have not provided raw monthly temperature data in this repository, but those data can be downloaded at [aims2.llnl.gov/search](https://metagrid.esgf-west.org/search). IPCC projected SLR data can be downloaded at [https://github.com/BrodiePearson/IPCC\_AR6\_Chapter9\_Figures](https://github.com/BrodiePearson/IPCC_AR6_Chapter9_Figures).
 
 
 
-Note that cloning this repository may take a few minutes due to the large number of files. While not all data are provided in this repository owing to memory size limits in GitHub, all files are available upon request. 
+Note that cloning this repository may take a few minutes due to the large number of files. As the total data volume exceeds GitHub's storage limits, only a subset is hosted here; the complete records are available on [Zenodo](https://zenodo.org/records/17131881?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjViMGZjMDIxLWUxNDQtNDIzYi04NWJhLTU4MGE0MWVlOTcyOSIsImRhdGEiOnt9LCJyYW5kb20iOiJiNWExNjIwYjZlOTRmNmUzYWUwZDMwOWI4NzBmNTY2OCJ9.261kxT1B6lilLfnMCO_JTApahCUJ_-o1n7bjWCcSj_U7LfPUcG9-vyipaamYdPKIFfIMaBa1j2LP-ZjWkryT-A).
+
+
 
 Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have any questions, find mistakes in the code, or if you would like to access specific files.
 
@@ -65,7 +65,7 @@ This folder contains data tables that were used for the analyses.
 
 #### 
 
------ Inundation frequency data------
+#### ----- Inundation frequency data------
 
 **• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif**: Global topographic data.
 
@@ -143,23 +143,23 @@ This folder contains all the code outputs considering both sea level rise and wa
 
 The attribute tables for the above data are all the same, as follows:
 
-|No.|Attributes		|Data type|Description|
+|No.|Attributes|Data type|Description|
 |-|-|-|-|
-|1	|Shape|Geometry|Vector type, here is 'Point'|
-|2	|WDPAID|Double|Unique ID number of the PA|
-|3	|WDPA\_PID|Text|Unique ID number of the PA (different data types)|
-|4	|GroupID|Text|Unique ID for each computational grid, including WDPAID information. This ID is the same as 'WDPA\_PID2' in the shapefile of the computational grid|
-|5		|WDPA\_PID2|Text|Unique ID for each computing grid, including WDPAID information|
-|6	|T2010|Double|Temperature in the baseline year (2010)|
-|7	|T\_SSP126|Double|Temperature in 2100 under the SSP1-2.6 scenario|
-|8		|T\_SSP245|Double|Temperature in 2100 under the SSP2-4.5 scenario|
-|9	|T\_SSP370|Double|Temperature in 2100 under the SSP3-7.0 scenario|
-|10	|T\_SSP585|Double|Temperature in 2100 under the SSP5-8.5 scenario|
-|11	|I2010|Double|Immersion frequency in the baseline year (2010)|
-|12	|I\_SSP126|Double|Immersion frequency in 2100 under the SSP1-2.6 scenario|
-|13	|I\_SSP245|Double|Immersion frequency in 2100 under the SSP2-4.5 scenario|
-|14		|I\_SSP370|Double|Immersion frequency in 2100 under the SSP3-7.0 scenario|
-|15		|I\_SSP585|Double|Immersion frequency in 2100 under the SSP5-8.5 scenario|
+|1|Shape|Geometry|Vector type, here is 'Point'|
+|2|WDPAID|Double|Unique ID number of the PA|
+|3|WDPA\_PID|Text|Unique ID number of the PA (different data types)|
+|4|GroupID|Text|Unique ID for each computational grid, including WDPAID information. This ID is the same as 'WDPA\_PID2' in the shapefile of the computational grid|
+|5|WDPA\_PID2|Text|Unique ID for each computing grid, including WDPAID information|
+|6|T2010|Double|Temperature in the baseline year (2010)|
+|7|T\_SSP126|Double|Temperature in 2100 under the SSP1-2.6 scenario|
+|8|T\_SSP245|Double|Temperature in 2100 under the SSP2-4.5 scenario|
+|9|T\_SSP370|Double|Temperature in 2100 under the SSP3-7.0 scenario|
+|10|T\_SSP585|Double|Temperature in 2100 under the SSP5-8.5 scenario|
+|11|I2010|Double|Immersion frequency in the baseline year (2010)|
+|12|I\_SSP126|Double|Immersion frequency in 2100 under the SSP1-2.6 scenario|
+|13|I\_SSP245|Double|Immersion frequency in 2100 under the SSP2-4.5 scenario|
+|14|I\_SSP370|Double|Immersion frequency in 2100 under the SSP3-7.0 scenario|
+|15|I\_SSP585|Double|Immersion frequency in 2100 under the SSP5-8.5 scenario|
 
 
 
@@ -233,7 +233,7 @@ The attribute tables for the above data are all the same, as follows:
 
 ----- Summarized data -----
 
-**• Statistics on air temperature and sea level rise.xlsx**: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios (and its mean increase with the z score), the predicted sea level rise values for 2100 under the four scenarios (along with their z scores), and the area lost due to sea level rise;
+**• Statistics on air temperature and sea level rise.xlsx**: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios, the predicted sea level rise values for 2100 under the four scenarios, and the area lost due to sea level rise;
 
 **• Statistics of climate resistance.xlsx**: the area and number of intertidal PAs that achieve climate resistance internally and those requiring specific management interventions.
 
