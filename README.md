@@ -1,8 +1,8 @@
 # GIPA
 
-**About**
+#### **About**
 
-This repository contains the data and code to reproduce the results from Ting Zhang, Zhijun Ma, et al. (2026). Achieving\_climate\_resistance\_in\_the\_global\_intertidal\_protected\_area\_system. In prep.
+This repository contains the data and code to reproduce the results from Ting Zhang, ..., Zhijun Ma, et al. (2026). Achieving climate resistance in the global intertidal protected area system. In prep.
 
 
 
@@ -28,37 +28,29 @@ Below is an overview of the different folders in this repository and their conte
 
 
 
-**File 1: Data/**
+#### **File 1: Data/**
 
 This folder contains data tables that were used for the analyses.
 
------ Protected areas data -----
+#### ----- Protected areas data -----
 
-• WDPA\_May2023\_Public\_shp\_polygons\_international\_level.shp: spatial extent of PAs. The attribute table of these data is detailed below:
+• **WDPA\_May2023\_Public\_shp\_polygons\_international\_level.shp**: spatial extent of PAs. The attribute table of these data is detailed below:
 
-No.	Attributes	Data type	Description
-
-1	Shape	Geometry	Vector type, here is ‘polygon’
-
-2	WDPAID	Double	Unique ID number of the PA
-
-3	WDPA\_PID	Text	Unique ID number of the PA (different data types)
-
-4	NAME	Text	Name of PA (in English)
-
-5	ORIG\_NAME	Text	Name of PA (in non-English)
-
-6	DESIG	Text	Designation of PA
-
-7	DESIG\_ENG	Text	Designation of PA (in English)
-
-8	DESIG\_TYPE	Text	Type of PA, here is ‘International’
-
-9	ISO3	Text	Country in which PA is located
+|No.|Attributes|Data type|Description|
+|-|-|-|-|
+|1|Shape|Geometry|Vector type, here is 'polygon'|
+|2|WDPAID|Double|Unique ID number of the PA|
+|3|WDPA\_PID|Text|Unique ID number of the PA (different data types)|
+|4|NAME|Text|Name of PA (in English)|
+|5|ORIG\_NAME|Text|Name of PA (in non-English)|
+|6|DESIG|Text|Designation of PA|
+|7|DESIG\_ENG|Text|Designation of PA (in English)|
+|8|DESIG\_TYPE|Text|Type of PA, here is 'International'|
+|9|ISO3|Text|Country in which PA is located|
 
 
 
-• WDPA\_May2023\_Public\_shp\_polygons\_international\_level\_grid: the vector surface data of the computational grid. Owing to the large amount of data, the file is saved in the geodatabase and then called for calculation during actual operation. The attribute table of these data is as follows:
+**• WDPA\_May2023\_Public\_shp\_polygons\_international\_level\_grid**: the vector surface data of the computational grid. Owing to the large amount of data, the file is saved in the geodatabase and then called for calculation during actual operation. The attribute table of these data is as follows:
 
 No.	Attributes	Data type	Description
 
@@ -76,31 +68,31 @@ No.	Attributes	Data type	Description
 
 
 
------ Inundation frequency data------
+#### ----- Inundation frequency data------
 
-• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif: Global topographic data.
+**• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif**: Global topographic data.
 
-• Fig9\_28b\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP1-2.6 scenario.
+**• Fig9\_28b\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP1-2.6 scenario.
 
-• Fig9\_28c\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP2-4.5 scenario.
+**• Fig9\_28c\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP2-4.5 scenario.
 
-• Fig9\_28d\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP3-7.0 scenario.
+**• Fig9\_28d\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP3-7.0 scenario.
 
-• Fig9\_28e\_data\_resample.tif: Sea level rise values for the year 2100 under the SSP5-8.5 scenario.
+**• Fig9\_28e\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP5-8.5 scenario.
 
-• Inundation\_frequency\_global\_2010.tif: Inundation frequency for the year 2010.
+• **Inundation\_frequency\_global\_2010.tif**: Inundation frequency for the year 2010.
 
-• Inundation\_frequency\_global\_ssp126\_2100.tif: Inundation frequency for the year 2100 under the SSP1-2.6 scenario.
+**• Inundation\_frequency\_global\_ssp126\_2100.tif**: Inundation frequency for the year 2100 under the SSP1-2.6 scenario.
 
-• Inundation\_frequency\_global\_ssp245\_2100.tif: Inundation frequency for the year 2100 under the SSP2-4.5 scenario.
+**• Inundation\_frequency\_global\_ssp245\_2100.tif**: Inundation frequency for the year 2100 under the SSP2-4.5 scenario.
 
-• Inundation\_frequency\_global\_ssp370\_2100.tif: Inundation frequency for the year 2100 under the SSP3-7.0 scenario.
+**• Inundation\_frequency\_global\_ssp370\_2100.tif**: Inundation frequency for the year 2100 under the SSP3-7.0 scenario.
 
-• Inundation\_frequency\_global\_ssp585\_2100.tif: Inundation frequency for the year 2100 under the SSP5-8.5 scenario.
+**• Inundation\_frequency\_global\_ssp585\_2100.tif**: Inundation frequency for the year 2100 under the SSP5-8.5 scenario.
 
 
 
------Air temperature data------
+#### -----Air temperature data------
 
 • resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_historical\_r1i1p1f2\_gr\_2010.tif: Global temperature data layer for the year 2010.
 
@@ -114,15 +106,15 @@ No.	Attributes	Data type	Description
 
 
 
------- Human pressure data -----
+##### ------ Human pressure data -----
 
 • gHM.tif: the global human modification (HM) dataset created by Kennedy et al. (2019).
 
 
 
-**File 3: Code/**
+#### **File 2: Code/**
 
-Code/MATLAB
+##### Code/MATLAB
 
 This folder contains all the MATLAB code needed to reproduce the results.
 
@@ -130,7 +122,7 @@ This folder contains all the MATLAB code needed to reproduce the results.
 
 
 
-Code/Python
+#### Code/Python
 
 This folder contains all the Python code needed to reproduce the results.
 
@@ -140,11 +132,11 @@ This folder contains all the Python code needed to reproduce the results.
 
 
 
-**File 4: Results**
+#### **File 3: Results**
 
 This folder contains all the code outputs considering both sea level rise and warming.
 
------Climate resistance------
+##### -----Climate resistance------
 
 • Climate\_resistance.gdb:
 
@@ -268,7 +260,7 @@ No.	Attributes	Data type	Description
 
 
 
------ Summarized data -----
+##### ----- Summarized data -----
 
 • Statistics on air temperature and sea level rise.xlsx: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios (and its mean increase with the z score), the predicted sea level rise values for 2100 under the four scenarios (along with their z scores), and the area lost due to sea level rise;
 
@@ -278,9 +270,7 @@ No.	Attributes	Data type	Description
 
 
 
-**File 5: Figure/**
+#### **File 4: Figure/**
 
 This folder contains figure outputs for the main figures and extended data figures.
-
-
 
