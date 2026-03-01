@@ -1,6 +1,6 @@
 # GIPA
 
-#### **About**
+## **About**
 
 This repository contains the data and code to reproduce the results from Ting Zhang, ..., Zhijun Ma, et al. (2026). Achieving climate resistance in the global intertidal protected area system. In subm.
 
@@ -12,7 +12,7 @@ Please feel free to contact Ting Zhang (ting\_zhang@fudan.edu.cn) if you have an
 
 
 
-#### **Dependencies**
+## **Dependencies**
 
 To reproduce the analysis, please refer to the folder Code/, which contains the files used to produce the results. The code used for path analysis is written in Python and utilizes the arcpy site package; therefore, ArcGIS Pro must be installed on the computing platform beforehand (compatible with Windows systems only. For installation instructions, please refer to the [official guide](https://pro.arcgis.com/en/pro-app/latest/get-started/install-and-sign-in-to-arcgis-pro.htm)). Additionally, active licenses for both the Spatial Analyst (arcpy.sa) and Image Analyst (arcpy.ia) extensions are strictly required to execute the spatial operations.
 
@@ -30,11 +30,11 @@ We have tested in ArcGIS Pro 10.3 and MATLAB R2023b on Windows 11 (on PC with i7
 
 
 
-#### **File 1: Data/**
+## **File 1: Data/**
 
 This folder contains data used to perform the analyses and run the code.
 
-#### ----- Protected areas data -----
+### ----- Protected areas data -----
 
 • **WDPA\_May2023\_Public\_shp\_polygons\_international\_level.shp** (subset): spatial extent of PAs. The attribute table of these data is detailed below:
 
@@ -65,7 +65,7 @@ This folder contains data used to perform the analyses and run the code.
 
 #### 
 
-#### ----- Inundation frequency data------
+### ----- Inundation frequency data------
 
 **• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif** (subset): Global topographic data.
 
@@ -89,7 +89,7 @@ This folder contains data used to perform the analyses and run the code.
 
 
 
-#### -----Air temperature data------
+### -----Air temperature data------
 
 **• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_historical\_r1i1p1f2\_gr\_2010.tif** (subset): Global temperature data layer for the year 2010.
 
@@ -103,7 +103,7 @@ This folder contains data used to perform the analyses and run the code.
 
 
 
-##### ------ Human pressure data -----
+### ------ Human pressure data -----
 
 **• gHM.tif** (subset): the global human modification (HM) dataset created by Kennedy et al. (2019).
 
@@ -111,9 +111,9 @@ This folder contains data used to perform the analyses and run the code.
 
 
 
-#### **File 2: Code/**
+## **File 2: Code/**
 
-#### Code/MATLAB
+### Code/MATLAB
 
 This folder contains all the MATLAB code needed to reproduce the results.
 
@@ -121,7 +121,7 @@ This folder contains all the MATLAB code needed to reproduce the results.
 
 
 
-#### Code/Python
+### Code/Python
 
 This folder contains all the Python code needed to reproduce the results.
 
@@ -133,11 +133,11 @@ This folder contains all the Python code needed to reproduce the results.
 
 
 
-#### **File 3: Results**
+## **File 3: Results**
 
 This folder contains all the code outputs considering both sea level rise and warming.
 
-#### -----Climate resistance------
+### -----Climate resistance------
 
 **• Climate\_resistance:**
 
@@ -235,7 +235,7 @@ The attribute tables for the above data are all the same, as follows:
 
 #### 
 
-#### ----- Summarized data -----
+### ----- Summarized data -----
 
 **• Statistics on air temperature and sea level rise.xlsx**: The area of each intertidal PA, along with its latitude and longitude, the air temperature in 2010, the predicted temperature for the year 2100 under the four scenarios, the predicted sea level rise values for 2100 under the four scenarios, and the area lost due to sea level rise;
 
@@ -247,7 +247,7 @@ The attribute tables for the above data are all the same, as follows:
 
 
 
-#### **File 4: Figure/**
+## **File 4: Figure/**
 
 This folder contains figure outputs for the main figures and extended data figures.
 
