@@ -115,7 +115,7 @@ This folder contains data used to perform the analyses and run the code.
 
 ### Code/MATLAB
 
-This folder contains all the MATLAB code needed to reproduce the results.
+This folder contains all the MATLAB code needed for data preprocessing.
 
 **• Preprocessing\_for\_SLR\_data.m**: Preprocessing the latitude and longitude display formats of the raw sea level rise data.
 
@@ -135,7 +135,7 @@ This folder contains all the Python code needed to reproduce the results.
 
 ## **File 3: Results**
 
-This folder contains all the code outputs considering both sea level rise and warming.
+This folder contains all the (subset) code outputs considering both sea level rise and warming.
 
 ### -----Climate resistance------
 
