@@ -22,7 +22,7 @@ Note that we have not provided raw monthly temperature data in this repository, 
 
 
 
-Note that cloning this repository may take a few minutes due to the large number of files. As the total data volume exceeds GitHub's storage limits, only a subset is hosted here; the complete records are available on [Zenodo](https://zenodo.org/records/17131881?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjViMGZjMDIxLWUxNDQtNDIzYi04NWJhLTU4MGE0MWVlOTcyOSIsImRhdGEiOnt9LCJyYW5kb20iOiJiNWExNjIwYjZlOTRmNmUzYWUwZDMwOWI4NzBmNTY2OCJ9.261kxT1B6lilLfnMCO_JTApahCUJ_-o1n7bjWCcSj_U7LfPUcG9-vyipaamYdPKIFfIMaBa1j2LP-ZjWkryT-A).
+Note that cloning this repository may take a few minutes due to the large number of files. As the total data volume exceeds GitHub's storage limits, only a **subset** is hosted here; the complete records are available on [**Zenodo**](https://zenodo.org/records/17131881?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjViMGZjMDIxLWUxNDQtNDIzYi04NWJhLTU4MGE0MWVlOTcyOSIsImRhdGEiOnt9LCJyYW5kb20iOiJiNWExNjIwYjZlOTRmNmUzYWUwZDMwOWI4NzBmNTY2OCJ9.261kxT1B6lilLfnMCO_JTApahCUJ_-o1n7bjWCcSj_U7LfPUcG9-vyipaamYdPKIFfIMaBa1j2LP-ZjWkryT-A).
 
 
 
@@ -32,11 +32,11 @@ We have tested in ArcGIS Pro 10.3 and MATLAB R2023b on Windows 11 (on PC with i7
 
 #### **File 1: Data/**
 
-This folder contains data tables that were used for the analyses.
+This folder contains data used to perform the analyses and run the code.
 
 #### ----- Protected areas data -----
 
-• **WDPA\_May2023\_Public\_shp\_polygons\_international\_level.shp**: spatial extent of PAs. The attribute table of these data is detailed below:
+• **WDPA\_May2023\_Public\_shp\_polygons\_international\_level.shp** (subset): spatial extent of PAs. The attribute table of these data is detailed below:
 
 |No.|Attributes|Data type|Description|
 |-|-|-|-|
@@ -52,7 +52,7 @@ This folder contains data tables that were used for the analyses.
 
 
 
-**• WDPA\_May2023\_Public\_shp\_polygons\_international\_level\_grid**: the vector surface data of the computational grid. Owing to the large amount of data, the file is saved in the geodatabase and then called for calculation during actual operation. The attribute table of these data is as follows:
+**• WDPA\_May2023\_Public\_shp\_polygons\_international\_level\_grid.shp** (subset): the vector surface data of the computational grid. Owing to the large amount of data, the file is saved in the geodatabase and then called for calculation during actual operation. The attribute table of these data is as follows:
 
 |No.|Attributes|Data type|Description|
 |-|-|-|-|
@@ -67,45 +67,45 @@ This folder contains data tables that were used for the analyses.
 
 #### ----- Inundation frequency data------
 
-**• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif**: Global topographic data.
+**• ETOPO\_2022\_v1\_30s\_N90W180\_bed.tif** (subset): Global topographic data.
 
-**• Fig9\_28b\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP1-2.6 scenario.
+**• Fig9\_28b\_data\_resample.tif** (subset): Sea level rise values for the year 2100 under the SSP1-2.6 scenario.
 
-**• Fig9\_28c\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP2-4.5 scenario.
+**• Fig9\_28c\_data\_resample.tif** (subset): Sea level rise values for the year 2100 under the SSP2-4.5 scenario.
 
-**• Fig9\_28d\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP3-7.0 scenario.
+**• Fig9\_28d\_data\_resample.tif** (subset): Sea level rise values for the year 2100 under the SSP3-7.0 scenario.
 
-**• Fig9\_28e\_data\_resample.tif**: Sea level rise values for the year 2100 under the SSP5-8.5 scenario.
+**• Fig9\_28e\_data\_resample.tif** (subset): Sea level rise values for the year 2100 under the SSP5-8.5 scenario.
 
-• **Inundation\_frequency\_global\_2010.tif**: Inundation frequency for the year 2010.
+• **Inundation\_frequency\_global\_2010.tif** (subset): Inundation frequency for the year 2010.
 
-**• Inundation\_frequency\_global\_ssp126\_2100.tif**: Inundation frequency for the year 2100 under the SSP1-2.6 scenario.
+**• Inundation\_frequency\_global\_ssp126\_2100.tif** (subset): Inundation frequency for the year 2100 under the SSP1-2.6 scenario.
 
-**• Inundation\_frequency\_global\_ssp245\_2100.tif**: Inundation frequency for the year 2100 under the SSP2-4.5 scenario.
+**• Inundation\_frequency\_global\_ssp245\_2100.tif** (subset): Inundation frequency for the year 2100 under the SSP2-4.5 scenario.
 
-**• Inundation\_frequency\_global\_ssp370\_2100.tif**: Inundation frequency for the year 2100 under the SSP3-7.0 scenario.
+**• Inundation\_frequency\_global\_ssp370\_2100.tif** (subset): Inundation frequency for the year 2100 under the SSP3-7.0 scenario.
 
-**• Inundation\_frequency\_global\_ssp585\_2100.tif**: Inundation frequency for the year 2100 under the SSP5-8.5 scenario.
+**• Inundation\_frequency\_global\_ssp585\_2100.tif** (subset): Inundation frequency for the year 2100 under the SSP5-8.5 scenario.
 
 
 
 #### -----Air temperature data------
 
-**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_historical\_r1i1p1f2\_gr\_2010.tif**: Global temperature data layer for the year 2010.
+**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_historical\_r1i1p1f2\_gr\_2010.tif** (subset): Global temperature data layer for the year 2010.
 
-**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp126\_r1i1p1f2\_gr\_2100.tif**: Global temperature data for the year 2100 under the SSP1-2.6 scenario.
+**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp126\_r1i1p1f2\_gr\_2100.tif** (subset): Global temperature data for the year 2100 under the SSP1-2.6 scenario.
 
-**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp245\_r1i1p1f2\_gr\_2100.tif**: Global temperature data for the year 2100 under the SSP2-4.5 scenario.
+**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp245\_r1i1p1f2\_gr\_2100.tif** (subset): Global temperature data for the year 2100 under the SSP2-4.5 scenario.
 
-**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp370\_r1i1p1f2\_gr\_2100.tif**: Global temperature data for the year 2100 under the SSP3-7.0 scenario.
+**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp370\_r1i1p1f2\_gr\_2100.tif** (subset): Global temperature data for the year 2100 under the SSP3-7.0 scenario.
 
-**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp585\_r1i1p1f2\_gr\_2100.tif**: Global temperature data for the year 2100 under the SSP5-8.5 scenario.
+**• resample\_converted\_tas\_Amon\_CNRM-CM6-1-HR\_ssp585\_r1i1p1f2\_gr\_2100.tif** (subset): Global temperature data for the year 2100 under the SSP5-8.5 scenario.
 
 
 
 ##### ------ Human pressure data -----
 
-**• gHM.tif**: the global human modification (HM) dataset created by Kennedy et al. (2019).
+**• gHM.tif** (subset): the global human modification (HM) dataset created by Kennedy et al. (2019).
 
 
 
@@ -141,7 +141,7 @@ This folder contains all the code outputs considering both sea level rise and wa
 
 **• Climate\_resistance:**
 
-**•ssp126\_s\_w.shp**: Extent of intertidal PAs achieving climate resistance internally without any management action under SSP1-2.6. The corresponding data were directly excluded from subsequent analyses under the corresponding scenarios.
+**•ssp126\_s\_w.shp** (subset): Extent of intertidal PAs achieving climate resistance internally without any management action under SSP1-2.6. The corresponding data were directly excluded from subsequent analyses under the corresponding scenarios.
 
 
 
@@ -169,13 +169,13 @@ The attribute tables for the above data are all the same, as follows:
 
 **• Climate\_resistance\_BA:**
 
-**• ssp126\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP1-2.6 scenario.
+**• ssp126\_s\_w\_BA.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP1-2.6 scenario.
 
-**• ssp245\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP2-4.5 scenario.
+**• ssp245\_s\_w\_BA.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP2-4.5 scenario.
 
-**• ssp370\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP3-7.0 scenario.
+**• ssp370\_s\_w\_BA.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP3-7.0 scenario.
 
-**• ssp585\_s\_w\_BA.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP5-8.5 scenario.
+**• ssp585\_s\_w\_BA.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments under the SSP5-8.5 scenario.
 
 
 
@@ -192,13 +192,13 @@ The attribute tables for the above data are all the same, as follows:
 
 **• Climate\_resistance\_BA\_MR1**:
 
-• **ssp126\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
+• **ssp126\_s\_w\_ BA\_MR1.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP1-2.6 scenario.
 
-• **ssp245\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
+• **ssp245\_s\_w\_ BA\_MR1.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP2-4.5 scenario.
 
-**• ssp370\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
+**• ssp370\_s\_w\_ BA\_MR1.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP3-7.0 scenario.
 
-**• ssp585\_s\_w\_ BA\_MR1.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
+**• ssp585\_s\_w\_ BA\_MR1.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and moderate-intensity managed realignment under the SSP5-8.5 scenario.
 
 
 
@@ -214,13 +214,13 @@ The attribute tables for the above data are all the same, as follows:
 
 **• Climate\_resistance\_ BA\_MR2:**
 
-**• ssp126\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP1-2.6 scenario.
+**• ssp126\_s\_w\_ BA\_MR2.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP1-2.6 scenario.
 
-**• ssp245\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP2-4.5 scenario.
+**• ssp245\_s\_w\_ BA\_MR2.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP2-4.5 scenario.
 
-**• ssp370\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP3-7.0 scenario.
+**• ssp370\_s\_w\_ BA\_MR2.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP3-7.0 scenario.
 
-**• ssp585\_s\_w\_ BA\_MR2.shp**: Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP5-8.5 scenario.
+**• ssp585\_s\_w\_ BA\_MR2.shp** (subset): Paths of intertidal PAs achieving climate resistance via boundary adjustments and high-intensity managed realignment under the SSP5-8.5 scenario.
 
 
 
