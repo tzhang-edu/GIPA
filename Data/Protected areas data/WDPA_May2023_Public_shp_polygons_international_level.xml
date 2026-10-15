@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<metadata xml:lang="zh"><Esri><CreaDate>20240921</CreaDate><CreaTime>14082100</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="d:\program files\arcgis\pro\Resources\ArcToolbox\toolboxes\Data Management Tools.tbx\CalculateField" Date="20240921" Time="140821">CalculateField WDPA_May2023_Public_shp_polygons_20230919_selectedAll_international_level_p1p2p3p4 WDPAID !WDPA_PID! Python # Text NO_ENFORCE_DOMAINS</Process></lineage></DataProperties></Esri></metadata>
