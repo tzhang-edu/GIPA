@@ -26,18 +26,18 @@ Extended\_Data\_Fig\_7.png - Output 3D visualization (Boundary adjustment simula
 During the peer-review process, raw and processed analytical data are accessible via this GitHub repository. Upon publication, all repository contents will be permanently archived with a unique DOI on Zenodo.  
 #### **Third-Party Datasets**  
 The third-party datasets analysed in this study are publicly available from their respective official sources:  
-##### **Conservation \& Boundary Data:**  
+**Conservation \& Boundary Data:**  
 • [WDPA (World Database on Protected Areas)](https://www.protectedplanet.net/)  
 • [Ramsar Sites Information Service](https://rsis.ramsar.org/)  
 • [Natural Earth](https://www.naturalearthdata.com/)  
 • MEOW (Marine Ecoregions of the World; [Spalding et al., 2007](https://doi.org/10.1641/B570707))  
-##### **Topography \& Oceanography Data:**  
+**Topography \& Oceanography Data:**  
 • [Global Intertidal Datasets](https://www.intertidal.app/)  
 • [DeltaDTM](https://data.4tu.nl/datasets)  
 • [ETOPO2022 Global Relief Model](https://www.ncei.noaa.gov/products/etopo-global-relief-model)  
 • [TPXO10-atlas-v2 (Global Tide Models)](https://www.tpxo.net/global/tpxo10-atlas)  
 • Suspended Particulate Matter Data ([Wei et al., 2021](https://doi.org/10.1029/2021JC017303))  
-##### **Climate \& Anthropogenic Data:**  
+**Climate \& Anthropogenic Data:**  
 • Projected Sea-Level Rise Scenarios ([Garner et al., 2021](https://zenodo.org/records/6382554))  
 • [WorldClim (Global Climate Data)](https://www.worldclim.org)  
 • [Bio-ORACLE (Marine Data Layers)](https://erddap.bio-oracle.org/)  
