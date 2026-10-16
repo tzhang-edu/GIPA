@@ -41,7 +41,7 @@ The third-party datasets analysed in this study are publicly available from thei
 • Projected Sea-Level Rise Scenarios ([Garner et al., 2021](https://zenodo.org/records/6382554))  
 • [WorldClim (Global Climate Data)](https://www.worldclim.org)  
 • [Bio-ORACLE (Marine Data Layers)](https://erddap.bio-oracle.org/)  
-• Global Human Modification Dataset ([Kennedy et al., 2019](https://doi.org/10.1111/gcb.  14549Digital%20Object%20Identifier%20%28DOI%29))
+• Global Human Modification Dataset ([Kennedy et al., 2019](https://doi.org/10.1111/gcb.14549))
 
 ### **Workflow and Usage**  
 To reproduce the findings or visualizations in this study:  
