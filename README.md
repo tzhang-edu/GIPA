@@ -13,11 +13,11 @@ Intermediate data files (e.g., global unclipped raster layers and extensive inte
 The repository is organized as follows:  
 **📂 Data/**  
 Master\_Baseline\_Combined\_0923\_1013\_v2.xlsx - Final analytical dataset for 665 PAs  
-plot\_ready\_data\_for\_Fig4.csv - Plot-ready data for global mapping
+plot\_ready\_data\_for\_Fig4.csv - Plot-ready data for global mapping  
 **📂 Scripts/**  
 01\_GEE\_Processing/ - Scripts for Google Earth Engine data preprocessing  
 02\_LCPA\_Modeling/ - Scripts for Least-Cost Path Analysis (Boundary adjustment)  
-03\_Figure\_Generation/ - Python scripts for plotting main/extended figures
+03\_Figure\_Generation/ - Python scripts for plotting main/extended figures  
 **📂 Figures/**  
 Fig\_1.pdf - Output visualization (Main Text)  
 Extended\_Data\_Fig\_7.png - Output 3D visualization (Boundary adjustment simulation)
