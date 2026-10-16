@@ -24,31 +24,33 @@ Intermediate data files (e.g., global unclipped raster layers and extensive inte
 
 The repository is organized as follows:
 
-```text
+```
 
-📂 GIPA/
+📁 GIPA/
 
-├── 📊 Data/
+├── 📁 Data/
 
-│   ├── Master\_Baseline\_Combined\_0923\_1013\_v2.xlsx   # Final analytical dataset for 665 PAs
+│   ├── Master\_Baseline\_Combined\_0923\_1013\_v2.xlsx  # Final analytical dataset for 665 PAs
 
-│   └── plot\_ready\_data\_for\_Fig4.csv                 # Plot-ready data for global mapping
+│   └── plot\_ready\_data\_for\_Fig4.csv                # Plot-ready data for global mapping
 
-├── 💻 Scripts/
+├── 📁 Scripts/
 
-│   ├── 01\_GEE\_Processing/       # Scripts for Google Earth Engine data preprocessing
+│   ├── 01\_GEE\_Processing/                          # Scripts for Google Earth Engine data preprocessing
 
-│   ├── 02\_LCPA\_Modeling/        # Scripts for Least-Cost Path Analysis (Boundary adjustment)
+│   ├── 02\_LCPA\_Modeling/                           # Scripts for Least-Cost Path Analysis (Boundary adjustment)
 
-│   └── 03\_Figure\_Generation/    # Python scripts for plotting main/extended figures
+│   └── 03\_Figure\_Generation/                       # Python scripts for plotting main/extended figures
 
-└── 📈 Figures/
+└── 📁 Figures/
 
-&#x20;   ├── Fig\_1.pdf                # Output visualization (Main Text)
+&#x20;   ├── Fig\_1.pdf                                   # Output visualization (Main Text)
 
-&#x20;   └── Extended\_Data\_Fig\_7.png  # Output 3D visualization (Boundary adjustment simulation)
+&#x20;   └── Extended\_Data\_Fig\_7.png                     # Output 3D visualization (Boundary adjustment simulation)
 
 ````
+
+
 
 ### **Data Availability**
 
