@@ -1,6 +1,6 @@
 Data and Code for: Achieving climate resistance in the global intertidal protected area system
 
-You can cite it using this DOI: [10.5281/zenodo.17131881](https://zenodo.org/records/17131881?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjViMGZjMDIxLWUxNDQtNDIzYi04NWJhLTU4MGE0MWVlOTcyOSIsImRhdGEiOnt9LCJyYW5kb20iOiJiNWExNjIwYjZlOTRmNmUzYWUwZDMwOWI4NzBmNTY2OCJ9.261kxT1B6lilLfnMCO_JTApahCUJ_-o1n7bjWCcSj_U7LfPUcG9-vyipaamYdPKIFfIMaBa1j2LP-ZjWkryT-A).
+You can cite it using this DOI: 10.5281/zenodo.17131881.
 
 (Note: The Zenodo DOI badge will be activated upon publication)
 
@@ -24,51 +24,45 @@ Intermediate data files (e.g., global unclipped raster layers and extensive inte
 
 The repository is organized as follows:
 
-📂 Your\_Project\_Name\_Repository/
+```text
 
-├── 📁 Data/
+📂 GIPA/
 
-│   ├── Master\_Baseline\_Combined\_0923\_1013\_v2.xlsx   # Final analytical dataset for 665 target PAs
+├── 📊 Data/
 
-│   └── plot\_ready\_data\_for\_Fig4.csv                 # Plot-ready data for global pattern mapping
+│   ├── Master\_Baseline\_Combined\_0923\_1013\_v2.xlsx   # Final analytical dataset for 665 PAs
 
-├── 📁 Scripts/
+│   └── plot\_ready\_data\_for\_Fig4.csv                 # Plot-ready data for global mapping
 
-│   ├── 📁 01\_GEE\_Processing/       # Scripts for Google Earth Engine data processing
+├── 💻 Scripts/
 
-│   ├── 📁 02\_LCPA\_Modeling/        # Scripts for Least-Cost Path Analysis and boundary adjustment
+│   ├── 01\_GEE\_Processing/       # Scripts for Google Earth Engine data preprocessing
 
-│   └── 📁 03\_Figure\_Generation/    # Python scripts for plotting main and extended data figures
+│   ├── 02\_LCPA\_Modeling/        # Scripts for Least-Cost Path Analysis (Boundary adjustment)
 
-├── 📁 Figures/
+│   └── 03\_Figure\_Generation/    # Python scripts for plotting main/extended figures
 
-│   ├── Fig\_1.pdf                   # Output visualization for Main Text Figure 1
+└── 📈 Figures/
 
-│   ├── Fig\_1.pdf                   # Output visualization for Main Text Figure 1
+&#x20;   ├── Fig\_1.pdf                # Output visualization (Main Text)
 
-│   ├── Fig\_4.pdf                   # Output visualization for Main Text Figure 4
+&#x20;   └── Extended\_Data\_Fig\_7.png  # Output 3D visualization (Boundary adjustment simulation)
 
-│   └── Extended\_Data\_Fig\_7.png     # Output 3D visualization for boundary adjustment simulation
-
-├── .gitignore
-
-└── README.md
-
-
+````
 
 ### **Data Availability**
 
 During the peer-review process, raw and processed analytical data are accessible via this GitHub repository. Upon publication, all repository contents will be permanently archived with a unique DOI on Zenodo.
 
-##### 
 
-##### **Third-Party Datasets**
+
+#### **Third-Party Datasets**
 
 The third-party datasets analysed in this study are publicly available from their respective official sources:
 
 
 
-###### **Conservation \& Boundary Data:**
+##### **Conservation \& Boundary Data:**
 
 • [WDPA (World Database on Protected Areas)](https://www.protectedplanet.net/)
 
@@ -78,11 +72,11 @@ The third-party datasets analysed in this study are publicly available from thei
 
 • MEOW (Marine Ecoregions of the World; [Spalding et al., 2007](https://doi.org/10.1641/B570707))
 
-###### **Topography \& Oceanography Data:**
+##### **Topography \& Oceanography Data:**
 
 • [Global Intertidal Datasets](https://www.intertidal.app/)
 
-• [DeltaDTM](https://data.4tu.nl/datasets/1da2e70f-6c4d-4b03-86bd-b53e789cc629/4)
+• [DeltaDTM](https://data.4tu.nl/datasets)
 
 • [ETOPO2022 Global Relief Model](https://www.ncei.noaa.gov/products/etopo-global-relief-model)
 
@@ -90,7 +84,7 @@ The third-party datasets analysed in this study are publicly available from thei
 
 • Suspended Particulate Matter Data ([Wei et al., 2021](https://doi.org/10.1029/2021JC017303))
 
-###### **Climate \& Anthropogenic Data:**
+##### **Climate \& Anthropogenic Data:**
 
 • Projected Sea-Level Rise Scenarios ([Garner et al., 2021](https://zenodo.org/records/6382554))
 
@@ -98,7 +92,7 @@ The third-party datasets analysed in this study are publicly available from thei
 
 • [Bio-ORACLE (Marine Data Layers)](https://erddap.bio-oracle.org/)
 
-• Global Human Modification Dataset ([Kennedy et al., 2019](https://doi.org/10.1111/gcb.14549))
+• Global Human Modification Dataset ([Kennedy et al., 2019](https://doi.org/10.1111/gcb.14549Digital%20Object%20Identifier%20%28DOI%29))
 
 
 
@@ -106,25 +100,25 @@ The third-party datasets analysed in this study are publicly available from thei
 
 To reproduce the findings or visualizations in this study:
 
-**•01\_GEE\_Processing**: Execute the JavaScript/Python files in Google Earth Engine to extract and preprocess intertidal boundaries and environmental variables.
+•**01\_GEE\_Processing**: Execute the JavaScript/Python files in Google Earth Engine to extract and preprocess intertidal boundaries and environmental variables.
 
-**•02\_LCPA\_Modeling**: Run the Python scripts to perform the spatially explicit boundary adjustment simulation and calculate climate resistance.
+•**02\_LCPA\_Modeling**: Run the Python scripts to perform the spatially explicit boundary adjustment simulation and calculate climate resistance.
 
-**•03\_Figure\_Generation**: Run the plotting scripts. The scripts are configured to read from the Data/ directory and save high-resolution outputs directly to the Figures/ directory.
+•**03\_Figure\_Generation**: Run the plotting scripts. The scripts are configured to read from the Data/ directory and save high-resolution outputs directly to the Figures/ directory.
 
 
 
 ### **Dependencies**
 
-**•Python 3.x**: numpy, pandas, geopandas, matplotlib, scikit-image (for LCPA), etc.
+•**Python 3.x**: numpy, pandas, geopandas, matplotlib, scikit-image (for LCPA), etc.
 
-**•Google Earth Engine (GEE)**: Requires a registered GEE account.
+•**Google Earth Engine (GEE)**: Requires a registered GEE account.
 
-**•ArcGIS Pro 3.6**: Used for specific spatial grid generation (e.g.'create fishnet').
+•**ArcGIS Pro 3.6**: Used for specific spatial grid generation (e.g.'create fishnet').
 
 
 
 ### **Contact**
 
-For any queries regarding the data, code, or methodology, please contact the corresponding author at \[Insert Email Address].
+For any queries regarding the data, code, or methodology, please contact the corresponding author at tingzhang.rs@gmail.com.
 
