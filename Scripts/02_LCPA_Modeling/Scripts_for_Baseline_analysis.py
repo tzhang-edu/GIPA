@@ -36,11 +36,11 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 # 0. Ultimate Batch Processing Console
 # =====================================================================
 # Note: The globe is divided into 18 blocks (120°x120° each).
-BLOCK_ID = "02"              
+BLOCK_ID = "01"              
 
 SCENARIO_LIST = ["ssp126", "ssp245", "ssp370", "ssp585"]
 CONF_LIST = ["High_Prob", "Mid_Prob", "Low_Prob"]
-MR_LIST = ["MR0"]
+MR_LIST = ["baseline"]
 THRESH_LIST = [0.20, 0.15, 0.25]
 REPORT_YEARS = [2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100]
 
@@ -219,9 +219,6 @@ def worker_task(shp_path, block_bounds, sce, conf):
             local_tidal_dict[y] = tidal_raw
 
         grand_initial_no_tidal_count, grand_initial_no_tidal_area = 0, 0.0
-        grand_noaction_temp_diff_sum, grand_noaction_temp_diff_count = 0.0, 0
-        grand_pure_physical_insitu_2100_count = 0
-        grand_pure_physical_insitu_2100_area = 0.0
         grand_counts = {t: {y: {'insitu_count': 0, 'insitu_area': 0.0} for y in REPORT_YEARS} for t in THRESH_LIST}
 
         # 🌟 MODIFICATION: Unconditional geometry collection if export is enabled
@@ -259,25 +256,8 @@ def worker_task(shp_path, block_bounds, sce, conf):
             # Reaching here means the grid has initial tidal flats
             if need_export_shp:
                 initial_geoms.append(geom)
-                    
-            # Calculate total in-situ temperature difference for the grid
-            t20 = local_temp_dict[2020][start_row, start_col]
-            t21 = local_temp_dict[2100][start_row, start_col]
-            if not np.isnan(t20) and not np.isnan(t21):
-                grand_noaction_temp_diff_sum += (t21 - t20)
-                grand_noaction_temp_diff_count += 1
-                
-            # A. Calculate pure physical survival status
-            is_physically_dead = False
-            for y in REPORT_YEARS:
-                if local_tidal_dict[y][start_row, start_col] != 1:
-                    is_physically_dead = True
-                    break
-            if not is_physically_dead:
-                grand_pure_physical_insitu_2100_count += 1
-                grand_pure_physical_insitu_2100_area += inter_area_val
 
-            # B. Comprehensive (Physical + Temperature Threshold) 10-year dynamic check
+            # Comprehensive (Physical + Temperature Threshold) 10-year dynamic check
             is_dead_dict = {t: False for t in THRESH_LIST}
             for y in REPORT_YEARS:
                 y_prev = y - 10
@@ -331,18 +311,10 @@ def worker_task(shp_path, block_bounds, sce, conf):
         # ------------------------ Aggregation & Writing ------------------------
         actual_tidal_count = total_participating_grids - grand_initial_no_tidal_count
         actual_tidal_area = total_participating_area - grand_initial_no_tidal_area
-        avg_noaction_temp_inc = grand_noaction_temp_diff_sum / grand_noaction_temp_diff_count if grand_noaction_temp_diff_count > 0 else np.nan
-        physical_loss_count_2100 = actual_tidal_count - grand_pure_physical_insitu_2100_count
-        physical_loss_area_2100 = actual_tidal_area - grand_pure_physical_insitu_2100_area
 
         results = []
         for mr in MR_LIST:
             for thresh in THRESH_LIST:
-                comp_insitu_2100_count = grand_counts[thresh][2100]['insitu_count']
-                comp_insitu_2100_area = grand_counts[thresh][2100]['insitu_area']
-                comp_loss_count_2100 = actual_tidal_count - comp_insitu_2100_count
-                comp_loss_area_2100 = actual_tidal_area - comp_insitu_2100_area
-
                 # Excel Output Standardization (English Columns for Reproducibility)
                 row_dict = {
                     'Sce': sce, 'MR': mr, 'Conf': conf, 'Blk': f"Block_{BLOCK_ID}", 'Thresh': thresh, 'PA_Name': pa_name,
@@ -351,8 +323,7 @@ def worker_task(shp_path, block_bounds, sce, conf):
                     'Actual_Tidal_Grids': actual_tidal_count, 'Actual_Tidal_Area': actual_tidal_area,
                     'Hemisphere': pa_hemisphere,
                     'Center_Lon_2020': round(pa_lon_2020_deg, 4), 'Center_Lat_2020': round(pa_lat_2020_deg, 4),
-                    'Center_Lat_2100': None, 'Lat_Difference': None, 'Migration_Angle_deg': None, 'Centroid_Move_Dist_km': None, 'Avg_Path_Length_km': None,
-                    'NoAction_2100_Temp_Rise_deg': round(avg_noaction_temp_inc, 4) if not np.isnan(avg_noaction_temp_inc) else None
+                    'Center_Lat_2100': None, 'Lat_Difference': None, 'Migration_Angle_deg': None, 'Centroid_Move_Dist_km': None, 'Avg_Path_Length_km': None
                 }
                 
                 for y in REPORT_YEARS:
@@ -362,17 +333,6 @@ def worker_task(shp_path, block_bounds, sce, conf):
                     row_dict[f'Corridor_Area_{y}'] = 0.0
                     row_dict[f'InPA_Count_{y}'] = 0
                     row_dict[f'InPA_Area_{y}'] = 0.0
-
-                row_dict['Failed_Count_2100'] = grand_initial_no_tidal_count + comp_loss_count_2100
-                row_dict['Failed_Area_2100'] = grand_initial_no_tidal_area + comp_loss_area_2100
-                row_dict['Actual_Failed_Count_2100'] = comp_loss_count_2100
-                row_dict['Actual_Failed_Area_2100'] = comp_loss_area_2100
-                row_dict['Total_Failure'] = "Y" if comp_loss_count_2100 == actual_tidal_count else "N"
-                row_dict['NoAction_Physical_Loss_Grids'] = physical_loss_count_2100
-                row_dict['NoAction_Physical_Loss_Area'] = physical_loss_area_2100
-                row_dict['NoAction_Total_Loss_Grids'] = comp_loss_count_2100
-                row_dict['NoAction_Total_Loss_Area'] = comp_loss_area_2100
-                row_dict['NoAction_Total_Failure'] = row_dict['Total_Failure']
 
                 results.append(row_dict)
                 
@@ -453,13 +413,6 @@ def main():
                 f'InPA_Count_{y}', f'InPA_Area_{y}'
             ])
             
-        col_order.extend([
-            'Failed_Count_2100', 'Failed_Area_2100', 'Actual_Failed_Count_2100', 'Actual_Failed_Area_2100', 'Total_Failure',
-            'NoAction_2100_Temp_Rise_deg',
-            'NoAction_Physical_Loss_Grids', 'NoAction_Physical_Loss_Area',
-            'NoAction_Total_Loss_Grids', 'NoAction_Total_Loss_Area', 'NoAction_Total_Failure'
-        ])
-        
         df_out = df_out[col_order]
         os.makedirs(os.path.dirname(EXCEL_PATH), exist_ok=True)
         df_out.to_excel(EXCEL_PATH, index=False, engine='openpyxl')
