@@ -12,15 +12,25 @@ Intermediate data files (e.g., global unclipped raster layers and extensive inte
 ### **Repository Structure**  
 The repository is organized as follows:  
 **📂 Data/**  
-Master\_Baseline\_Combined\_0923\_1013\_v2.xlsx - Final analytical dataset for 665 PAs  
-plot\_ready\_data\_for\_Fig4.csv - Plot-ready data for global mapping  
+• Overall_Summary_260923.xlsx - Master analytical summary dataset  
+• PA_info.xlsx - Basic information and metadata for Protected Areas  
+• Figure1a_Bivariate_Map.csv - Plot-ready data for Figure 1a  
+• Figure1b_Intermediate_data.xlsx - Plot-ready data for Figure 1b  
+• Figure4a_Realm_Data.csv - Plot-ready data for Figure 4a  
+• Figure4b_Transboundary_OD_Matrix_Optimized.csv - Plot-ready data for Figure 4b  
 **📂 Scripts/**  
-01\_GEE\_Processing/ - Scripts for Google Earth Engine data preprocessing  
-02\_LCPA\_Modeling/ - Scripts for Least-Cost Path Analysis (Boundary adjustment)  
-03\_Figure\_Generation/ - Python scripts for plotting main/extended figures  
+01_GEE_Processing/ - Scripts for Google Earth Engine data preprocessing  
+  - GEE_data_extraction_for_global_tidal_wetland.js  
+  - GEE_data_extraction_for_SLR_rate.js  
+02_LCPA_Modeling/ - Scripts for Least-Cost Path Analysis and statistical modeling  
+  - Scripts_for_LCPA.py  
+  - Scripts_for_MonteCarlo_analysis.py  
+  - Scripts_for_Basic_information_statistics.py  
+03_Figure_Generation/ - Python scripts for plotting main figures  
+  - plot_fig1a_en.py, plot_fig2_en.py, etc. (Individual scripts for each figure)  
 **📂 Figures/**  
-Fig\_1.pdf - Output visualization (Main Text)  
-Extended\_Data\_Fig\_7.png - Output 3D visualization (Boundary adjustment simulation)
+• Figure1b.png, Figure1cd.png, Figure2.png, Figure3.png, Figure4b.png, Figure4c.png - Output visualizations for the main text  
+• Extended Data Fig_1.png through Extended Data Fig_7.png - Output visualizations for extended data 
 
 ### **Data Availability**  
 During the peer-review process, raw and processed analytical data are accessible via this GitHub repository. Upon publication, all repository contents will be permanently archived with a unique DOI on Zenodo.  
