@@ -53,7 +53,7 @@ df_ssp245 = df[
     (df['Sce'] == 'ssp245') & 
     (np.isclose(df['Thresh'].astype(float), 0.20, atol=1e-3))
     #&  
-    #(df['Actual_Tidal_Area'] > 1.0)  # 🌟 此处已更新为与之前相同的严格过滤条件
+    #(df['Actual_Tidal_Area'] > 1.0)
 ].copy()
 
 # Map intervention strategies
