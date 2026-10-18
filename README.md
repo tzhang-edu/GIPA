@@ -20,14 +20,14 @@ The repository is organized as follows:
 • Figure4b_Transboundary_OD_Matrix_Optimized.csv - Plot-ready data for Figure 4b  
 **📂 Scripts/**  
 01_GEE_Processing/ - Scripts for Google Earth Engine data preprocessing  
-  - GEE_data_extraction_for_global_tidal_wetland.js  
-  - GEE_data_extraction_for_SLR_rate.js  
+• GEE_data_extraction_for_global_tidal_wetland.js  
+• GEE_data_extraction_for_SLR_rate.js  
 02_LCPA_Modeling/ - Scripts for Least-Cost Path Analysis and statistical modeling  
-  - Scripts_for_LCPA.py  
-  - Scripts_for_MonteCarlo_analysis.py  
-  - Scripts_for_Basic_information_statistics.py  
+• Scripts_for_LCPA.py  
+• Scripts_for_MonteCarlo_analysis.py  
+• Scripts_for_Basic_information_statistics.py  
 03_Figure_Generation/ - Python scripts for plotting main figures  
-  - plot_fig1a_en.py, plot_fig2_en.py, etc. (Individual scripts for each figure)  
+• plot_fig1a_en.py, plot_fig2_en.py, etc. (Individual scripts for each figure)  
 **📂 Figures/**  
 • Figure1b.png, Figure1cd.png, Figure2.png, Figure3.png, Figure4b.png, Figure4c.png - Output visualizations for the main text  
 • Extended Data Fig_1.png through Extended Data Fig_7.png - Output visualizations for extended data 
