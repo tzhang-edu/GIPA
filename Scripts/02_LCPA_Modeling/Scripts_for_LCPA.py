@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # ==============================================================================
-# SLRprediction_LCPA_MultiAgent_Evolution.py
-# 
-# Architecture: Linux Server Adapted - BA Synchronous Time-Stepping Refactored Version
-# Description: Multi-agent based spatial evolution and climate refugia pathfinding
+# v19.py
+# Description: 
 # ==============================================================================
 import os
 
-# 💡 CRITICAL: Lock underlying NumPy threads for stable multi-processing
+# 💡 CRITICAL: Lock underlying NumPy/C-library threads to prevent contention 
+# when utilizing outer Python multi-processing.
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
@@ -35,23 +34,27 @@ from shapely.ops import unary_union
 import concurrent.futures
 
 # =====================================================================
-# 0. Ultimate Batch Processing Console
+# 0. Global Configuration Console
 # =====================================================================
-# Note: The globe is divided into 18 blocks (120°x120° each).
-BLOCK_ID = "02"            
+BLOCK_ID = "06"            
 
-# 🌟 Full Matrix Parameter List 🌟
-SCENARIO_LIST = ["ssp126", "ssp245", "ssp370", "ssp585"]  
-MR_LIST = ["MR0", "MR1"] # MR0 corresponds to BA Strategy; MR1 corresponds to BA+MR Strategy
+# 🌟 Parameter Matrices 🌟
+SCENARIO_LIST = ["ssp585"]  
+MR_LIST = ["MR1"] 
 CONF_LIST = ["High_Prob", "Mid_Prob", "Low_Prob"]
 THRESH_LIST = [0.20, 0.15, 0.25]
 
-# 🌟 Dynamic Path Configurations 🌟
-BASE_WORKSPACE = "./"  # Change this to your root working directory (e.g., "/home/zhangting/SLR")
-INPUT_DIR = os.path.join(BASE_WORKSPACE, f"WDPA_grid4.1_block/Block_{BLOCK_ID}")
-EXCEL_PATH = os.path.join(BASE_WORKSPACE, f"PA_Results/Master_Statistics_Block_{BLOCK_ID}.xlsx")
+# 🌟 Workspace Paths (Easily configurable for other users) 🌟
+BASE_DIR = "./SLR_Project_Workspace"
+INPUT_DIR = os.path.join(BASE_DIR, f"WDPA_grid4.1_block/Block_{BLOCK_ID}")
+OUTPUT_ROOT = os.path.join(BASE_DIR, "PA_Results")
+EXCEL_PATH = os.path.join(OUTPUT_ROOT, f"Master_Statistics_Block_{BLOCK_ID}.xlsx")
+
+CLIMATE_DIR = os.path.join(BASE_DIR, "WorldClim")
+SLR_RESULTS_DIR = os.path.join(BASE_DIR, "Upload_Blocks_Result")
 ID_FIELD = "myWDPAID3"
 
+# Global Cache for Multi-Processing memory optimization
 GLOBAL_CACHE = {
     'TEMP': {},
     'TIDAL': {},
@@ -59,15 +62,14 @@ GLOBAL_CACHE = {
     'CRS': None
 }
 
-# ================= 1. Dynamic Paths & Helper Functions =================
-
+# ================= 1. Dynamic Pathing & Helper Functions =================
 def get_temp_paths(scenario):
     return {
-        2020: os.path.join(BASE_WORKSPACE, "WorldClim/wc2.1_30s_tavg_filled_interpolated_proj.tif"),
-        2040: os.path.join(BASE_WORKSPACE, f"WorldClim/wc2.1_30s_tavg_{scenario}_2021-2040_mean_filled_interpolated_proj_bili.tif"),
-        2060: os.path.join(BASE_WORKSPACE, f"WorldClim/wc2.1_30s_tavg_{scenario}_2041-2060_mean_filled_interpolated_proj_bili.tif"),
-        2080: os.path.join(BASE_WORKSPACE, f"WorldClim/wc2.1_30s_tavg_{scenario}_2061-2080_mean_filled_interpolated_proj_bili.tif"),
-        2100: os.path.join(BASE_WORKSPACE, f"WorldClim/wc2.1_30s_tavg_{scenario}_2081-2100_mean_filled_interpolated_proj_bili.tif")
+        2020: os.path.join(CLIMATE_DIR, "wc2.1_30s_tavg_filled_interpolated_proj.tif"),
+        2040: os.path.join(CLIMATE_DIR, f"wc2.1_30s_tavg_{scenario}_2021-2040_mean_filled_interpolated_proj_bili.tif"),
+        2060: os.path.join(CLIMATE_DIR, f"wc2.1_30s_tavg_{scenario}_2041-2060_mean_filled_interpolated_proj_bili.tif"),
+        2080: os.path.join(CLIMATE_DIR, f"wc2.1_30s_tavg_{scenario}_2061-2080_mean_filled_interpolated_proj_bili.tif"),
+        2100: os.path.join(CLIMATE_DIR, f"wc2.1_30s_tavg_{scenario}_2081-2100_mean_filled_interpolated_proj_bili.tif")
     }
 
 def get_cropped_array(raster_path, geometry, use_all_touched=False):
@@ -81,10 +83,10 @@ def get_cropped_array(raster_path, geometry, use_all_touched=False):
         return float_array, out_transform, src.crs
 
 def get_dynamic_tidal_array(year, buffer_geom, master_transform, master_shape, master_crs, scenario, mr, conf):
-    search_pattern = os.path.join(BASE_WORKSPACE, f"Upload_Blocks_Result/Block_{BLOCK_ID}/{scenario}_{mr}_processing_proj/{scenario}_{year}/Prob_Intertidal_*_{scenario}_{year}_{conf}_1km_Binary_proj.tif")
+    search_pattern = os.path.join(SLR_RESULTS_DIR, f"Block_{BLOCK_ID}/{scenario}_{mr}_processing_proj/{scenario}_{year}/Prob_Intertidal_*_{scenario}_{year}_{conf}_1km_Binary_proj.tif")
     tiff_list = glob.glob(search_pattern)
     if not tiff_list:
-        raise ValueError(f"Cannot find tidal data: {search_pattern}")
+        raise ValueError(f"Tidal surface files not found: {search_pattern}")
 
     srcs = [rasterio.open(f) for f in tiff_list]
     try:
@@ -150,14 +152,13 @@ def append_to_excel(file_path, df, sheet_name):
                 else:
                     df.to_excel(writer, sheet_name=sheet_name, index=False, header=True)
         except PermissionError:
-            print(f"\n❌ FATAL ERROR: Cannot append to Excel! File is locked by another program: {file_path}")
+            print(f"\n❌ CRITICAL: Cannot append to Excel. File is currently open/locked: {file_path}")
         except Exception as e:
-            print(f"\n❌ Unknown exception occurred while appending to Excel: {e}\n")
+            print(f"\n❌ Unknown exception during Excel append: {e}\n")
             
-# ================= 2. Four-Level Nested Memory Management Core =================
-
+# ================= 2. Memory Preloading & Caching Core =================
 def preload_temp_data(block_bounds, scenario):
-    print(f"🔥 [1/2] Building [Temperature] global cache -> Climate Scenario: {scenario} ...")
+    print(f"🔥 [1/2] Building [Temperature] global cache -> Scenario: {scenario} ...")
     GLOBAL_CACHE['TEMP'].clear()
     gc.collect()
     
@@ -180,7 +181,7 @@ def preload_temp_data(block_bounds, scenario):
     gc.collect()
 
 def preload_tidal_data(block_bounds, scenario, mr, conf):
-    print(f"🌊 [2/2] Building [Tidal] cache -> Strategy: {mr} | Confidence: {conf}...")
+    print(f"🌊 [2/2] Building [Tidal] global cache -> Strategy: {mr} | Confidence: {conf}...")
     GLOBAL_CACHE['TIDAL'].clear()
     gc.collect()
     
@@ -194,7 +195,7 @@ def preload_tidal_data(block_bounds, scenario, mr, conf):
         GLOBAL_CACHE['TIDAL'][year] = arr
     gc.collect()
 
-# ================= 3. Core Computation Engine (Multi-Agent Evolution) =================
+# ================= 3. Core Simulation Logic (Breadth-First + Strict Lock) =================
 def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
     total_participating_grids = len(pas)
     total_participating_area = float(pas['Inter_Area'].fillna(0).sum()) if 'Inter_Area' in pas.columns else 0.0
@@ -224,7 +225,7 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
     pa_hemisphere = "Northern" if pa_lat_2020_deg >= 0 else "Southern"
     all_2100_endpoints = []
 
-    print(f"    🚀 [{final_output_name}] Starting simulation. Total grids in this PA: {total_participating_grids}...")
+    print(f"    🚀 [{final_output_name}] Commencing synchronous simulation with strict locks for {total_participating_grids} grids...")
     current_grid_idx = 0 
     
     for pa_id, group in grouped_pas:
@@ -267,7 +268,7 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
         HIGH_PENALTY = 99999.0 
 
         # =====================================================================
-        # [Architecture Refactor: Phase 1] - Initialize all tidal patches (Agent Creation)
+        # [Phase 1] - Initialize all tidal patches as active Agents
         # =====================================================================
         active_patches = []
         for row in group.itertuples():
@@ -281,7 +282,7 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
 
             start_row, start_col = rowcol(master_transform, start_point.x, start_point.y)            
             
-            # 3x3 neighborhood capture for leak prevention
+            # Neighborhood capture for robust initialization
             if not (0 <= start_row < master_shape[0] and 0 <= start_col < master_shape[1]) or tidal_list[0][start_row, start_col] != 1:
                 y_range = np.arange(max(0, start_row-1), min(master_shape[0], start_row+2))
                 x_range = np.arange(max(0, start_col-1), min(master_shape[1], start_col+2))
@@ -316,7 +317,7 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
             })
 
         # =====================================================================
-        # [Architecture Refactor: Phase 2] - Breadth-First Evolution (Timeline-based)
+        # [Phase 2] - Breadth-First: Synchronous advancement through time
         # =====================================================================
         for y in TARGET_YEARS:
             y_prev = y - 10
@@ -337,54 +338,55 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
                     if abs(curr_node_temp - prev_node_temp) <= thresh: 
                         can_stay = True
                 
+                stay_successful = False
                 if can_stay:
                     tx, ty = xy(master_transform, current_r, current_c)
                     global_cell_id = rowcol(GLOBAL_CACHE['TRANSFORM'], tx, ty)
                     
-                    occupied_by_year[y].add(global_cell_id) # Remove exclusivity lock
-                    established_by_year[y].append((current_r, current_c))
-                    
-                    if current_r == patch['start_row'] and current_c == patch['start_col']:
-                        counts[y]['insitu_count'] += 1
-                        counts[y]['insitu_area'] += patch['inter_area_val']
-                    else:
-                        counts[y]['corridor_count'] += 1
-                        counts[y]['corridor_area'] += patch['inter_area_val']
-                        if prep_pa_geom.intersects(Point(tx, ty)):
-                            counts[y]['in_pa_count'] += 1
-                            counts[y]['in_pa_area'] += patch['inter_area_val']
-                    
-                    if y in REPORT_YEARS:
-                        path_coords = [xy(master_transform, r, c) for r, c in patch['trajectory']]
-                        if len(path_coords) > 1:
-                            global_paths_by_year[y].append({ID_FIELD: patch['pa_id'], 'geometry': LineString(path_coords)})
-
-                    if y == 2040: global_endpoints_2040.append({ID_FIELD: patch['pa_id'], 'geometry': Point(tx, ty)})
-                    elif y == 2060: global_endpoints_2060.append({ID_FIELD: patch['pa_id'], 'geometry': Point(tx, ty)})
-                    elif y == 2080: global_endpoints_2080.append({ID_FIELD: patch['pa_id'], 'geometry': Point(tx, ty)})
-                            
-                    if y == 2100: 
-                        pa_end_points.append(Point(tx, ty))
-                        path_coords = [xy(master_transform, r, c) for r, c in patch['trajectory']]
-                        grand_path_lengths.append(LineString(path_coords).length / 1000.0 if len(path_coords) > 1 else 0.0)
+                    if global_cell_id not in occupied_by_year[y]:
+                        occupied_by_year[y].add(global_cell_id) 
+                        established_by_year[y].append((current_r, current_c))
                         
+                        if current_r == patch['start_row'] and current_c == patch['start_col']:
+                            counts[y]['insitu_count'] += 1
+                            counts[y]['insitu_area'] += patch['inter_area_val']
+                        else:
+                            counts[y]['corridor_count'] += 1
+                            counts[y]['corridor_area'] += patch['inter_area_val']
+                            if prep_pa_geom.intersects(Point(tx, ty)):
+                                counts[y]['in_pa_count'] += 1
+                                counts[y]['in_pa_area'] += patch['inter_area_val']
+                        
+                        if y in REPORT_YEARS:
+                            path_coords = [xy(master_transform, r, c) for r, c in patch['trajectory']]
+                            if len(path_coords) > 1:
+                                global_paths_by_year[y].append({ID_FIELD: patch['pa_id'], 'geometry': LineString(path_coords)})
+
+                        if y == 2040: global_endpoints_2040.append({ID_FIELD: patch['pa_id'], 'geometry': Point(tx, ty)})
+                        elif y == 2060: global_endpoints_2060.append({ID_FIELD: patch['pa_id'], 'geometry': Point(tx, ty)})
+                        elif y == 2080: global_endpoints_2080.append({ID_FIELD: patch['pa_id'], 'geometry': Point(tx, ty)})
+                                
+                        if y == 2100: 
+                            pa_end_points.append(Point(tx, ty))
+                            path_coords = [xy(master_transform, r, c) for r, c in patch['trajectory']]
+                            grand_path_lengths.append(LineString(path_coords).length / 1000.0 if len(path_coords) > 1 else 0.0)
+                        
+                        stay_successful = True
+                        
+                if stay_successful:
                     continue
 
-                # ----------------------- [Searching for Refugia] -----------------------
+                # ----------------------- [Search for Refugia] -----------------------
                 ref_temp = prev_node_temp  
                 target_condition = (np.abs(temp_Y - ref_temp) <= thresh) & (tidal_Y == 1) 
-                binary_targets = target_condition.astype(int)
-                labeled_targets = sk_label(binary_targets, connectivity=2)
-                patch_sizes = np.bincount(labeled_targets.ravel())
+                
                 target_rows, target_cols = np.where(target_condition)
                 
                 target_found = False
                 target_rc = None
 
                 if len(target_rows) > 0:
-                    pixel_patch_sizes = patch_sizes[labeled_targets[target_rows, target_cols]]
                     dist_to_current = (target_rows - current_r)**2 + (target_cols - current_c)**2
-                    area_bonus_raw = np.sqrt(pixel_patch_sizes)
 
                     est_list = established_by_year[y]
                     if len(est_list) > 0:
@@ -403,10 +405,8 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
                     
                     dist_norm = normalize_array(dist_to_current)
                     cohesion_norm = normalize_array(colony_cohesion_dist)
-                    area_norm = normalize_array(area_bonus_raw)
 
-                    W_CURRENT, W_COLONY, W_AREA = 0.1, 0.9, 0.0   
-                    final_scores = (W_CURRENT * dist_norm) + (W_COLONY * cohesion_norm) - (W_AREA * area_norm)
+                    final_scores = (0.1 * dist_norm) + (0.9 * cohesion_norm)
                     sorted_indices = np.argsort(final_scores)
                     sorted_target_rows, sorted_target_cols = target_rows[sorted_indices], target_cols[sorted_indices]
                     
@@ -414,10 +414,11 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
                         tx, ty = xy(master_transform, r, c)
                         global_cell_id = rowcol(GLOBAL_CACHE['TRANSFORM'], tx, ty)
                         
-                        occupied_by_year[y].add(global_cell_id) # Remove target grid exclusivity
-                        target_rc = (r, c)
-                        target_found = True
-                        break 
+                        if global_cell_id not in occupied_by_year[y]:
+                            occupied_by_year[y].add(global_cell_id) 
+                            target_rc = (r, c)
+                            target_found = True
+                            break 
                         
                 if not target_found: 
                     patch['is_dead'] = True
@@ -425,32 +426,29 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
                     continue
                 
                 try:
-                    slice_end = int((y - 2020) / 10) + 1
+                    current_t_idx = int((y - 2020) / 10)
                     PAD = 60 
                     r_start = max(0, min(current_r, target_rc[0]) - PAD)
                     r_end = min(master_shape[0], max(current_r, target_rc[0]) + PAD + 1)
                     c_start = max(0, min(current_c, target_rc[1]) - PAD)
                     c_end = min(master_shape[1], max(current_c, target_rc[1]) + PAD + 1)
-                                                                                                        
-                    local_costs_over_time = []
+                                                                                                                                                
                     multiplier = 1.0 / thresh 
                     
-                    for t_idx in range(slice_end):
-                        local_temp = temp_list[t_idx][r_start:r_end, c_start:c_end]
-                        local_tidal = tidal_list[t_idx][r_start:r_end, c_start:c_end]
-                        cost = (np.abs(local_temp - prev_node_temp) * multiplier) + 1.0
-                        cost = np.where((local_tidal == 1) & (~np.isnan(local_temp)), cost, HIGH_PENALTY)
-                        local_costs_over_time.append(cost)                        
+                    local_temp = temp_list[current_t_idx][r_start:r_end, c_start:c_end]
+                    local_tidal = tidal_list[current_t_idx][r_start:r_end, c_start:c_end]
+                    cost = (np.abs(local_temp - prev_node_temp) * multiplier) + 1.0
+                    local_cost_surface = np.where((local_tidal == 1) & (~np.isnan(local_temp)), cost, HIGH_PENALTY)                        
                     
-                    local_min_cost_surface = np.min(local_costs_over_time, axis=0)
                     local_curr = (current_r - r_start, current_c - c_start)
                     local_target = (target_rc[0] - r_start, target_rc[1] - c_start)
                     
-                    local_indices, weight = route_through_array(local_min_cost_surface, local_curr, local_target, fully_connected=True)
+                    local_indices, weight = route_through_array(local_cost_surface, local_curr, local_target, fully_connected=True)
                     
                     if int(weight / HIGH_PENALTY) > 1: 
                         patch['is_dead'] = True
                         patch['death_year'] = y  
+                        occupied_by_year[y].remove(global_cell_id) 
                         continue
                     
                     patch['current_r'], patch['current_c'] = target_rc
@@ -485,7 +483,7 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
                     continue                
 
         # =====================================================================
-        # [Architecture Refactor: Phase 3] - Status Archiving and Settlement
+        # [Phase 3] - Final State Archiving
         # =====================================================================
         for patch in active_patches:
             if patch['is_dead']:
@@ -544,15 +542,20 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
     actual_tidal_count = total_participating_grids - grand_initial_no_tidal_count
     actual_tidal_area = total_participating_area - grand_initial_no_tidal_area
 
-    # Excel Output Standardization (English Columns for Reproducibility)
+    # Apply strictly translated English column names (excluding failure metrics) 
+    # but keeping 'NoAction_2100_Temp_Rise_deg'
     summary_dict = {
         'Sce': [scenario], 'MR': [mr], 'Conf': [conf], 'Blk': [BLOCK_ID], 'Thresh': [thresh], 
         'PA_Name': [final_output_name], 
-        'Total_Grids': [total_participating_grids], 'Total_Area': [total_participating_area],
-        'No_Init_Tidal_Grids': [grand_initial_no_tidal_count], 'No_Init_Tidal_Area': [grand_initial_no_tidal_area],
-        'Actual_Tidal_Grids': [actual_tidal_count], 'Actual_Tidal_Area': [actual_tidal_area],
+        'Total_Grids': [total_participating_grids], 
+        'Total_Area': [total_participating_area],
+        'No_Init_Tidal_Grids': [grand_initial_no_tidal_count], 
+        'No_Init_Tidal_Area': [grand_initial_no_tidal_area],
+        'Actual_Tidal_Grids': [actual_tidal_count], 
+        'Actual_Tidal_Area': [actual_tidal_area],
         'Hemisphere': [pa_hemisphere],
-        'Center_Lon_2020': [round(pa_lon_2020_deg, 4)], 'Center_Lat_2020': [round(pa_lat_2020_deg, 4)],
+        'Center_Lon_2020': [round(pa_lon_2020_deg, 4)], 
+        'Center_Lat_2020': [round(pa_lat_2020_deg, 4)],
         'Center_Lat_2100': [round(pa_lat_2100_deg, 4) if not np.isnan(pa_lat_2100_deg) else None],
         'Lat_Difference': [round(lat_diff, 4) if not np.isnan(lat_diff) else None],
         'Migration_Angle_deg': [round(migration_angle, 2) if not np.isnan(migration_angle) else None],
@@ -567,13 +570,19 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
         summary_dict[f'Corridor_Area_{y}'] = [grand_counts[y]['corridor_area']]
         summary_dict[f'InPA_Count_{y}'] = [grand_counts[y]['in_pa_count']]
         summary_dict[f'InPA_Area_{y}'] = [grand_counts[y]['in_pa_area']]
+        
+    summary_dict['NoAction_2100_Temp_Rise_deg'] = [None]
 
     col_order = ['Sce', 'MR', 'Conf', 'Blk', 'Thresh', 'PA_Name', 'Total_Grids', 'Total_Area',
                  'No_Init_Tidal_Grids', 'No_Init_Tidal_Area', 'Actual_Tidal_Grids', 'Actual_Tidal_Area',
-                 'Hemisphere','Center_Lon_2020', 'Center_Lat_2020', 'Center_Lat_2100', 'Lat_Difference', 'Migration_Angle_deg', 
-                 'Centroid_Move_Dist_km', 'Avg_Path_Length_km']
+                 'Hemisphere','Center_Lon_2020', 'Center_Lat_2020', 'Center_Lat_2100', 'Lat_Difference', 
+                 'Migration_Angle_deg', 'Centroid_Move_Dist_km', 'Avg_Path_Length_km']
+                 
     for y in REPORT_YEARS:
-        col_order.extend([f'InSitu_Count_{y}', f'InSitu_Area_{y}', f'Corridor_Count_{y}', f'Corridor_Area_{y}', f'InPA_Count_{y}', f'InPA_Area_{y}'])
+        col_order.extend([f'InSitu_Count_{y}', f'InSitu_Area_{y}', f'Corridor_Count_{y}', 
+                          f'Corridor_Area_{y}', f'InPA_Count_{y}', f'InPA_Area_{y}'])
+                          
+    col_order.append('NoAction_2100_Temp_Rise_deg')
     
     summary_df = pd.DataFrame(summary_dict)[col_order]
     
@@ -611,10 +620,10 @@ def process_single_pa(pas, final_output_name, scenario, mr, conf, thresh, dirs):
     
     return summary_df
 
-# ================= 4. Workflow Dispatcher =================
+# ================= 4. Task Dispatcher & Processing Driver =================
 def worker_task(shp_path, block_bounds, sce, mr, conf, thresh, dirs):
     final_output_name = os.path.splitext(os.path.basename(shp_path))[0]
-    print(f"  -> [Process Allocation] Processing: {final_output_name}")
+    print(f"  -> [Task Dispatch] Processing PA: {final_output_name}")
     try:
         pas = gpd.read_file(shp_path)
         if pas.empty: return None
@@ -624,33 +633,33 @@ def worker_task(shp_path, block_bounds, sce, mr, conf, thresh, dirs):
         
         result = process_single_pa(pas, final_output_name, sce, mr, conf, thresh, dirs)
         
-        print(f"✅✅✅ [{final_output_name}] Computation completed!")
+        print(f"✅✅✅ [{final_output_name}] Successfully completed!")
         return result
 
     except Exception as e:
-        print(f"❌ Exception in PA {final_output_name}: {e}")
+        print(f"❌ Computation error for PA {final_output_name}: {e}")
         return None
 
 def main():
-    print(f"======== 🚀 Launching Multi-Dimensional Massive Batch Engine | Block {BLOCK_ID} ========")
+    print(f"======== 🚀 Launching High-Performance Batch Engine | Block {BLOCK_ID} ========")
     shp_files = glob.glob(os.path.join(INPUT_DIR, "*.shp"))
     if not shp_files: 
-        print("No PA shapefiles found!")
+        print(f"No PA shapefiles found in input directory: {INPUT_DIR}")
         return
     
     shp_files.sort(key=lambda x: os.path.getsize(x), reverse=True)
     
     MAX_WORKERS = 25 
-    print(f"⚙️ Multi-processing enabled. Allocated CPU cores: {MAX_WORKERS}")
+    print(f"⚙️ Multi-processing enabled. Allocated CPU Cores: {MAX_WORKERS}")
     
     sample_sce = SCENARIO_LIST[0]
     sample_mr = MR_LIST[0]
     sample_conf = CONF_LIST[0]
     
-    search_pattern_2020 = os.path.join(BASE_WORKSPACE, f"Upload_Blocks_Result/Block_{BLOCK_ID}/{sample_sce}_{sample_mr}_processing_proj/{sample_sce}_2020/Prob_Intertidal_*_{sample_sce}_2020_{sample_conf}_1km_Binary_proj.tif")
+    search_pattern_2020 = os.path.join(SLR_RESULTS_DIR, f"Block_{BLOCK_ID}/{sample_sce}_{sample_mr}_processing_proj/{sample_sce}_2020/Prob_Intertidal_*_{sample_sce}_2020_{sample_conf}_1km_Binary_proj.tif")
     block_tiffs = glob.glob(search_pattern_2020)
     if not block_tiffs: 
-        print(f"Base reference tidal image not found. Cannot calculate boundaries! Please check path:\n{search_pattern_2020}")
+        print(f"Reference base tidal rasters not found. Unable to calculate block boundaries.\nCheck path: {search_pattern_2020}")
         return
 
     block_bounds = None
@@ -672,7 +681,7 @@ def main():
 
                 for thresh in THRESH_LIST:
                     
-                    base_out = os.path.join(BASE_WORKSPACE, f"PA_Results/{sce}/{mr}/{conf}_T{thresh}/Block_{BLOCK_ID}")
+                    base_out = os.path.join(OUTPUT_ROOT, sce, mr, f"{conf}_T{thresh}", f"Block_{BLOCK_ID}")
                     dirs = {
                         'OUTPUT': os.path.join(base_out, "Output_paths"),
                         'PT': os.path.join(base_out, "Output_ranges_pt"),
@@ -682,7 +691,7 @@ def main():
                     for d in dirs.values():
                         os.makedirs(d, exist_ok=True)
 
-                    print(f"\n>>>> Computing | Scenario: {sce} | Strategy: {mr} | Confidence: {conf} | Threshold: {thresh} <<<<")
+                    print(f"\n>>>> Executing | Scenario: {sce} | Strategy: {mr} | Confidence: {conf} | Threshold: {thresh} <<<<")
                     
                     all_summaries = []
 
@@ -701,7 +710,7 @@ def main():
                     if all_summaries:
                         final_summary_df = pd.concat(all_summaries, ignore_index=True)
                         append_to_excel(EXCEL_PATH, final_summary_df, sheet_name="Sheet1_Summary")
-                        print(f"✅ Results for {sce}-{mr}-{conf}-T{thresh} appended to Excel!")
+                        print(f"✅ Results for {sce}-{mr}-{conf}-T{thresh} successfully appended to Excel!")
 
 if __name__ == "__main__":
     main()

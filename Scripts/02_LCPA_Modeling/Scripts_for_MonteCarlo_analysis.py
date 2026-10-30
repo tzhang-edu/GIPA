@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # ==============================================================================
-# SLRprediction_MLWS_MHHW_multiyears_MonteCarlo_Parallel.py
+# v10.py
 # 
 # Architecture: Dynamic multi-core concurrency + Process isolation + Tile compatibility
 # Core fix: Prevented Float32 NoData multiplication overflow and tile file conflicts
@@ -178,6 +178,11 @@ def process_single_dem_parallel(dem_filename):
             with rasterio.open(rmax_ram_files[0]) as src:
                 rmax_window = rasterio.windows.from_bounds(*chunk_bounds, transform=src.transform)
                 r_max_arr = src.read(1, window=rmax_window, out_shape=dem_arr.shape, boundless=True, fill_value=-9999.0).astype(np.float32)
+                
+                # 💡 CRITICAL FIX: Mask out NoData and abnormally huge values to prevent Float32 overflow
+                if src.nodata is not None:
+                    r_max_arr[r_max_arr == src.nodata] = 0.0
+                r_max_arr[r_max_arr > 100000] = 0.0
         else:
             r_max_arr = np.zeros(dem_arr.shape, dtype=np.float32)
 
