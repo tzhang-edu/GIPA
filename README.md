@@ -30,7 +30,7 @@ The repository is organized as follows:
 • plot_fig1a_en.py, plot_fig2_en.py, etc. (Individual scripts for each figure)  
 **📂 Figures/**  
 • Figure1b.png, Figure1cd.png, Figure2.png, Figure3.png, Figure4b.png, Figure4c.png - Output visualizations for the main text  
-• Extended Data Fig_1.png through Extended Data Fig_7.png - Output visualizations for extended data 
+• Supplementary FigureS1.png through Supplementary FigureS7.png - Output visualizations for Supplementary data
 
 ### **Data Availability**  
 During the peer-review process, raw and processed analytical data are accessible via this GitHub repository. Upon publication, all repository contents will be permanently archived with a unique DOI on Zenodo.  
